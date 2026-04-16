@@ -164,7 +164,7 @@ export function ProjectShowcase() {
               if (isMultiImage) {
                 return (
                   <React.Fragment key={project.title}>
-                    {project.image.map((subImage, subIndex) => {
+                    {(project.image as string[]).map((subImage: string, subIndex: number) => {
                       const internalSubOpacity = subIndex === subImageIndex ? 1 : 0;
                       return (
                         <img

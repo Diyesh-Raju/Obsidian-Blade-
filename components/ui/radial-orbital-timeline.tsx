@@ -194,7 +194,7 @@ export default function RadialOrbitalTimeline({
             return (
               <div
                 key={item.id}
-                ref={(el) => (nodeRefs.current[item.id] = el)}
+                ref={(el: HTMLDivElement | null) => { nodeRefs.current[item.id] = el; }}
                 className="absolute transition-all duration-700 cursor-pointer flex flex-col items-center justify-center"
                 style={nodeStyle}
                 suppressHydrationWarning 

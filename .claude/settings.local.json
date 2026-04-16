@@ -10,7 +10,9 @@
       "Bash(ls C:/Users/athar/OneDrive/Desktop/obsidian-blade/public/outdoor-*)",
       "Bash(npx tsc:*)",
       "Bash(curl:*)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(git -C /c/Users/athar/OneDrive/Desktop/obsidian-blade log --oneline origin/main..HEAD)",
+      "Bash(git *)"
     ]
   }
 }
