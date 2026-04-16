@@ -1,26 +1,94 @@
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import "tailwindcss";
 
 :root {
+  --bg-primary: #ffffff;
+  --text-primary: #111111;
+  --accent-rose: #b76e79;
+  --box-brown-rose: #a47774;
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #111111;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-rosegold: var(--accent-rose);
+  --color-boxrose: var(--box-brown-rose);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Bulletproof Clash Display Class */
+.font-clash { 
+  font-family: 'Clash Display', ui-sans-serif, system-ui, sans-serif !important; 
+}
+
+.liquid-glass-text {
+  background: linear-gradient(135deg, #b76e79 0%, #a47774 35%, #ffffff 50%, #b76e79 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-text-stroke: 1px rgba(183, 110, 121, 0.2);
+  filter: drop-shadow(0px 10px 20px rgba(183, 110, 121, 0.15));
+}
+
+/* --- LUXURY BRAND DNA --- */
+
+/* 1. Apple-Style Liquid Glass Button */
+.glass-button {
+  background: linear-gradient(135deg, rgba(164, 119, 116, 0.9) 0%, rgba(183, 110, 121, 1) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 24px rgba(183, 110, 121, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  color: white !important;
+  border-radius: 9999px; /* Perfect pill shape */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+}
+
+.glass-button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(183, 110, 121, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  background: linear-gradient(135deg, rgba(183, 110, 121, 1) 0%, rgba(164, 119, 116, 0.95) 100%);
+}
+
+/* 2. Metallic Liquid Rose Gold Text */
+.liquid-text {
+  background: linear-gradient(
+    to right, 
+    #111111 20%, 
+    #b76e79 40%, 
+    #a47774 60%, 
+    #111111 80%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: liquidShine 6s linear infinite;
+}
+
+@keyframes liquidShine {
+  to {
+    background-position: 200% center;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* 3. Liquid Glass Card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 2rem;
+  box-shadow: 0 20px 25px -5px rgba(183, 110, 121, 0.05);
 }

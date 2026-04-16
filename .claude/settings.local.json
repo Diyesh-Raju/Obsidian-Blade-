@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx next:*)",
+      "Bash(mv app/commercial app/residential)",
+      "Bash(mv app/hospitality app/commercial)",
+      "Bash(mv app/residences app/villas)",
+      "Bash(npm install:*)",
+      "Bash(ls C:/Users/athar/OneDrive/Desktop/obsidian-blade/public/image_6* C:/Users/athar/OneDrive/Desktop/obsidian-blade/public/image_7*)",
+      "Bash(ls C:/Users/athar/OneDrive/Desktop/obsidian-blade/public/outdoor-*)",
+      "Bash(npx tsc:*)",
+      "Bash(curl:*)",
+      "Bash(npm run *)"
+    ]
+  }
+}
