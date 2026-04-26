@@ -64,28 +64,29 @@ export function FeaturedProperties() {
                 className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
               />
               
-              {/* The Dark Frosted Hover State */}
-              <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center gap-4 z-10">
-                
-                {/* Button 1: View Details (Dynamic Link) */}
+              {/* Dark frosted overlay — always visible on touch devices (no hover),
+                  revealed on hover for mouse users */}
+              <div className="absolute inset-0 bg-black/55 md:bg-black/60 md:backdrop-blur-[2px] md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center gap-3 sm:gap-4 z-10">
+
+                {/* Button 1: View Details */}
                 <Link href={`/residential/${property.title.toLowerCase().replace(/\s+/g, '-')}`}>
-                  <Button className="bg-[#b76e79] hover:bg-[#a05d68] text-white w-40 rounded-full shadow-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-75">
+                  <Button className="bg-[#b76e79] hover:bg-[#a05d68] text-white w-36 sm:w-40 rounded-full shadow-lg md:transform md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500 delay-75">
                     View Details
                   </Button>
                 </Link>
 
-                {/* Button 2: Enquire Now (Rose Gold) */}
-                <Button className="bg-[#b76e79] hover:bg-[#a05d68] text-white w-40 rounded-full shadow-lg transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                {/* Button 2: Enquire Now */}
+                <Button className="bg-[#b76e79] hover:bg-[#a05d68] text-white w-36 sm:w-40 rounded-full shadow-lg md:transform md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500 delay-100">
                   Enquire Now
                 </Button>
 
               </div>
 
-              {/* Gradient to protect text below */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
-              
-              {/* Location Tag */}
-              <div className="absolute bottom-4 left-5 right-5 flex items-center text-white z-0 group-hover:opacity-0 transition-opacity duration-300">
+              {/* Gradient — hidden on mobile (overlay already shown), hover-toggled on desktop */}
+              <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-300" />
+
+              {/* Location Tag — desktop only, hidden on mobile because overlay covers it */}
+              <div className="hidden md:flex absolute bottom-4 left-5 right-5 items-center text-white z-0 group-hover:opacity-0 transition-opacity duration-300">
                 <MapPin className="w-4 h-4 mr-1 text-[#b76e79]" />
                 <span className="text-sm font-medium tracking-wide drop-shadow-md">{property.location}</span>
               </div>

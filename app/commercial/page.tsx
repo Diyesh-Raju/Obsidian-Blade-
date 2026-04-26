@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import { TurbulenceParticles } from "@/components/ui/turbulence-particles";
 import { HorizontalGallery } from "@/components/ui/horizontal-gallery";
+import Footer from "@/components/Footer";
 
 export default function CommercialPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -21,7 +22,7 @@ export default function CommercialPage() {
   }, []);
 
   return (
-    <main className="bg-white overflow-x-hidden">
+    <main className="bg-white">
       
       {/* THE 100VH CINEMATIC VIDEO HERO */}
       <section className="relative h-screen w-full overflow-hidden bg-black">
@@ -49,27 +50,27 @@ export default function CommercialPage() {
         {/* --- HERO TEXT --- */}
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none">
           <h1
-            className="text-white text-6xl md:text-8xl lg:text-[10rem] font-normal drop-shadow-2xl"
+            className="text-white text-4xl sm:text-6xl md:text-8xl lg:text-[10rem] font-normal drop-shadow-2xl leading-[1.05] text-center px-4"
             style={{ fontFamily: "'Great Vibes', cursive" }}
           >
             Corporate Estates
           </h1>
-          <p className="mt-8 text-white/90 text-sm md:text-lg tracking-[0.4em] uppercase font-light drop-shadow-md">
+          <p className="mt-5 sm:mt-8 text-white/90 text-[10px] sm:text-sm md:text-lg tracking-[0.3em] sm:tracking-[0.4em] uppercase font-light drop-shadow-md text-center px-4">
             The Pinnacle of Business
           </p>
         </div>
       </section>
 
       {/* --- SUBSEQUENT CONTENT --- */}
-      <section className="relative z-40 min-h-screen bg-white py-32 px-6 border-t border-zinc-100 flex flex-col justify-center">
+      <section className="relative z-40 min-h-screen bg-white py-20 sm:py-32 px-4 sm:px-6 border-t border-zinc-100 flex flex-col justify-center">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 
-            className="text-[#b76e79] text-4xl md:text-5xl font-normal mb-8"
+          <h2
+            className="text-[#b76e79] text-3xl sm:text-4xl md:text-5xl font-normal mb-6 sm:mb-8"
             style={{ fontFamily: "'Great Vibes', cursive" }}
           >
             Unmatched Infrastructure
           </h2>
-          <p className="text-zinc-500 font-light tracking-wide text-lg max-w-2xl mx-auto">
+          <p className="text-zinc-500 font-light tracking-wide text-base sm:text-lg max-w-2xl mx-auto">
             Discover architectural masterpieces designed strictly for the world's most visionary enterprises.
           </p>
         </div>
@@ -77,7 +78,10 @@ export default function CommercialPage() {
 
       {/* --- HORIZONTAL SCROLL GALLERY --- */}
       <HorizontalGallery />
-      
+
+      {/* FOOTER */}
+      <Footer />
+
     </main>
   );
 }

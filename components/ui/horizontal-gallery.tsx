@@ -56,21 +56,21 @@ export function HorizontalGallery() {
       ref={sectionRef}
       className="h-screen w-full bg-zinc-900 overflow-hidden flex flex-col justify-center"
     >
-      <div className="px-12 mb-8 absolute top-32">
-        <h2 className="text-[#b76e79] text-5xl font-light tracking-wide drop-shadow-md">
+      <div className="px-4 sm:px-8 md:px-12 mb-8 absolute top-24 sm:top-32">
+        <h2 className="text-[#b76e79] text-3xl sm:text-4xl md:text-5xl font-light tracking-wide drop-shadow-md">
           The Master Portfolio
         </h2>
-        <p className="text-zinc-500 text-sm tracking-widest uppercase mt-4">
+        <p className="text-zinc-500 text-[10px] sm:text-sm tracking-widest uppercase mt-3 sm:mt-4">
           Scroll to explore
         </p>
       </div>
 
       {/* HORIZONTAL SCROLL TRACK */}
-      <div ref={scrollRef} className="flex gap-8 px-12 mt-20 w-max">
+      <div ref={scrollRef} className="flex gap-4 sm:gap-6 md:gap-8 px-4 sm:px-8 md:px-12 mt-20 w-max">
         {GALLERY_ITEMS.map((item, idx) => (
           <div
             key={idx}
-            className="relative w-[60vw] md:w-[40vw] h-[50vh] rounded-2xl overflow-hidden shrink-0 group"
+            className="relative w-[80vw] sm:w-[60vw] md:w-[40vw] h-[45vh] sm:h-[50vh] rounded-2xl overflow-hidden shrink-0 group"
           >
             <Image
               src={item.src}

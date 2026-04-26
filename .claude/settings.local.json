@@ -12,7 +12,22 @@
       "Bash(curl:*)",
       "Bash(npm run *)",
       "Bash(git -C /c/Users/athar/OneDrive/Desktop/obsidian-blade log --oneline origin/main..HEAD)",
-      "Bash(git *)"
+      "Bash(git *)",
+      "Bash(kill %1)",
+      "Bash(sort -k5 -rn)",
+      "Bash(grep -n -A 5 \"^#### \\\\`quality\\\\`\\\\|^#### \\\\`fill\\\\`\\\\|^#### \\\\`sizes\\\\`\\\\|^#### \\\\`priority\\\\`\\\\|^#### \\\\`preload\\\\`\" \"C:/Users/athar/OneDrive/Desktop/obsidian-blade/node_modules/next/dist/docs/01-app/03-api-reference/02-components/image.md\")",
+      "WebFetch(domain:www.prestigeconstructions.com)",
+      "Bash(tasklist //FI \"IMAGENAME eq node.exe\")",
+      "WebFetch(domain:royaltemplate.framer.website)",
+      "Bash(ffprobe -v error -show_entries format=duration,bit_rate -show_entries stream=codec_name,width,height,r_frame_rate -of default=nw=1 public/home-hero.mp4)",
+      "Bash(ffmpeg -version)",
+      "PowerShell(winget install *)",
+      "PowerShell(Get-ChildItem *)",
+      "Bash(./ffmpeg.exe -version)",
+      "Bash(./ffmpeg.exe -i public/home-hero.mp4)",
+      "Bash(./ffmpeg.exe -i public/home-hero.mp4 -q:v 4 -vf \"scale=1920:-2\" public/hero-frames/frame-%04d.jpg -y)",
+      "Bash(./ffmpeg.exe -i public/home-hero.mp4 -q:v 5 -vf \"scale=960:-2\" public/hero-frames-sm/frame-%04d.jpg -y)",
+      "Bash(tasklist)"
     ]
   }
 }

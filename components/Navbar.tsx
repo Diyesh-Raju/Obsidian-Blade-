@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { name: "Villa Projects", path: "/villas" },
@@ -14,6 +15,20 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isGlobalCinemaMode, setIsGlobalCinemaMode] = useState(false);
+  const pathname = usePathname();
+
+  // When a nav link points to the page we're already on, Next.js skips navigation
+  // (and therefore skips its default scroll-to-top). Intercept those same-route
+  // clicks and smooth-scroll manually. Cross-route clicks fall through to Next.
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    if (pathname === href) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   // 1. Handle Scroll State
   useEffect(() => {
@@ -59,8 +74,9 @@ export default function Navbar() {
       <div className="flex items-center justify-between px-8 md:px-24">
         
         {/* LOGO */}
-        <Link 
-          href="/" 
+        <Link
+          href="/"
+          onClick={(e) => handleNavClick(e, "/")}
           className={`text-sm font-bold tracking-[0.3em] uppercase transition-colors duration-1000 ${
             isGlobalCinemaMode ? "text-[#b76e79]" : "text-black"
           }`}
@@ -74,8 +90,9 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.path}
+              onClick={(e) => handleNavClick(e, link.path)}
               className={`text-xs uppercase tracking-[0.2em] transition-colors duration-1000 ${
-                isGlobalCinemaMode 
+                isGlobalCinemaMode
                   ? "text-[#b76e79]/70 hover:text-[#b76e79]" // CINEMA MODE: Muted rose to bright rose
                   : "text-zinc-500 hover:text-[#b76e79]" // DEFAULT: Gray to bright rose
               }`}
@@ -86,10 +103,11 @@ export default function Navbar() {
         </nav>
 
         {/* CTA BUTTON */}
-        <Link 
+        <Link
           href="/contact"
+          onClick={(e) => handleNavClick(e, "/contact")}
           className={`px-8 py-3 text-xs uppercase tracking-widest font-bold hidden md:block transition-all duration-1000 ${
-            isGlobalCinemaMode 
+            isGlobalCinemaMode
               ? "bg-[#b76e79] text-[#0a0a0a] rounded-full shadow-[0_0_20px_rgba(183,110,121,0.3)] border border-[#b76e79]" // CINEMA MODE: Solid Rose Gold
               : "glass-button" // DEFAULT: Liquid Glass
           }`}

@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import RadialOrbitalTimeline from "@/components/ui/radial-orbital-timeline";
 import { FeaturedProperties } from "@/components/ui/featured-properties";
+import { FloorplanFolders } from "@/components/ui/3d-folder";
+import Footer from "@/components/Footer";
 
 // We convert the emojis into inline React components so they scale perfectly inside the nodes
 const timelineData = [
@@ -83,7 +85,7 @@ export default function ResidentialPage() {
   }, [slides.length]);
 
   return (
-    <main className="min-h-screen bg-white text-black overflow-x-hidden w-full">
+    <main className="min-h-screen bg-white text-black w-full">
       
       {/* --- FULL SCREEN HERO SLIDESHOW --- */}
       <section className="relative w-full h-screen overflow-hidden bg-zinc-900">
@@ -105,13 +107,13 @@ export default function ResidentialPage() {
         <div className="absolute inset-0 bg-black/20 z-20 pointer-events-none" />
 
         <div className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4 pointer-events-none">
-          <h1 
-            className="text-white text-6xl md:text-8xl lg:text-9xl font-normal drop-shadow-xl tracking-wide"
+          <h1
+            className="text-white text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-normal drop-shadow-xl tracking-wide leading-[1.05]"
             style={{ fontFamily: "'Great Vibes', cursive" }}
           >
             Residential Towers
           </h1>
-          <p className="mt-6 text-white/90 text-sm md:text-base max-w-lg mx-auto leading-relaxed font-light tracking-[0.3em] uppercase drop-shadow-md">
+          <p className="mt-4 sm:mt-6 text-white/90 text-[10px] sm:text-sm md:text-base max-w-lg mx-auto leading-relaxed font-light tracking-[0.25em] sm:tracking-[0.3em] uppercase drop-shadow-md px-4">
             Redefining the skyline with unparalleled elegance
           </p>
         </div>
@@ -121,7 +123,7 @@ export default function ResidentialPage() {
       <section className="py-24 bg-white relative z-10 border-t border-[#b76e79]/15">
         <div className="text-center mb-10">
           <h2 
-            className="text-[#b76e79] text-5xl md:text-6xl font-normal drop-shadow-sm"
+            className="text-[#b76e79] text-4xl sm:text-5xl md:text-6xl font-normal drop-shadow-sm"
             style={{ fontFamily: "'Great Vibes', cursive" }}
           >
             Our Guarantees
@@ -139,7 +141,7 @@ export default function ResidentialPage() {
       <section className="py-24 bg-zinc-50 relative z-10 border-t border-zinc-200">
         <div className="text-center mb-16">
           <h2 
-            className="text-[#b76e79] text-5xl md:text-6xl font-normal drop-shadow-sm"
+            className="text-[#b76e79] text-4xl sm:text-5xl md:text-6xl font-normal drop-shadow-sm"
             style={{ fontFamily: "'Great Vibes', cursive" }}
           >
             Current Collections
@@ -151,6 +153,12 @@ export default function ResidentialPage() {
         
         <FeaturedProperties />
       </section>
+
+      {/* --- FLOORPLAN FOLDERS --- */}
+      <FloorplanFolders />
+
+      {/* FOOTER */}
+      <Footer />
 
     </main>
   );

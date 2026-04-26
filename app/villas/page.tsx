@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { GLSLHills } from "@/components/ui/glsl-hills";
 import { ProjectShowcase } from "@/components/ui/project-showcase";
 import { useThemeStore } from "@/lib/theme-store";
+import WhyObsidianVillas from "@/components/WhyObsidianVillas";
+import Footer from "@/components/Footer";
 
 // ----------------------------------------------------------------------
 // NATIVE, BULLETPROOF FADE-IN ENGINE
@@ -66,7 +68,7 @@ export default function VillasPage() {
   }, [setHoveringBubble]);
 
   return (
-    <main className="min-h-screen bg-white text-black w-full overflow-hidden">
+    <main className="min-h-screen bg-white text-black w-full">
       <div className={`fixed inset-0 bg-[#0a0a0a] transition-opacity duration-[1200ms] ease-in-out pointer-events-none z-40 transform-gpu will-change-opacity ${isHoveringBubble ? "opacity-100" : "opacity-0"}`} />
 
       {/* 1. GLSL HERO SECTION */}
@@ -75,12 +77,12 @@ export default function VillasPage() {
           <GLSLHills />
         </div>
         <div className="relative z-10 text-center px-4 pointer-events-none mt-16">
-          <h1 className="font-clash font-bold text-5xl md:text-7xl lg:text-8xl tracking-tighter whitespace-pre-wrap leading-tight">
-            <span className="italic font-light">Designs That Speak</span> <br/> 
+          <h1 className="font-clash font-bold text-3xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[1.1]">
+            <span className="italic font-light">Designs That Speak</span> <br/>
             <span className="liquid-text">Louder Than Words</span>
           </h1>
-          <p className="mt-6 text-zinc-600 text-sm md:text-base max-w-lg mx-auto leading-relaxed">
-            We craft stunning visuals and user-friendly experiences that 
+          <p className="mt-4 sm:mt-6 text-zinc-600 text-xs sm:text-sm md:text-base max-w-lg mx-auto leading-relaxed px-2">
+            We craft stunning visuals and user-friendly experiences that
             help your brand stand out and connect with your audience.
           </p>
         </div>
@@ -93,9 +95,9 @@ export default function VillasPage() {
         className={`py-32 px-6 md:px-12 relative transition-all duration-1000 ${isHoveringBubble ? "z-50" : "z-10"}`}
       >
         <div
-          className={`w-full max-w-[1400px] mx-auto aspect-video rounded-[3rem] p-4 sm:p-6 backdrop-blur-xl border border-[#b76e79]/30 transition-all duration-[1200ms] ease-in-out transform-gpu ${isHoveringBubble ? "bg-transparent border-[#b76e79] border-opacity-100 shadow-[0_0_20px_10px_rgba(183,110,121,1),0_0_100px_10px_rgba(183,110,121,0.15)] scale-[1.02]" : "bg-white/50 border-opacity-30 shadow-[0_20px_60px_-15px_rgba(183,110,121,0.15)] hover:shadow-[0_30px_80px_-15px_rgba(183,110,121,0.25)]"}`}
+          className={`w-full max-w-[1400px] mx-auto aspect-video rounded-[1.5rem] sm:rounded-[3rem] p-3 sm:p-6 backdrop-blur-xl border border-[#b76e79]/30 transition-all duration-[1200ms] ease-in-out transform-gpu ${isHoveringBubble ? "bg-transparent border-[#b76e79] border-opacity-100 shadow-[0_0_20px_10px_rgba(183,110,121,1),0_0_100px_10px_rgba(183,110,121,0.15)] scale-[1.02]" : "bg-white/50 border-opacity-30 shadow-[0_20px_60px_-15px_rgba(183,110,121,0.15)] hover:shadow-[0_30px_80px_-15px_rgba(183,110,121,0.25)]"}`}
         >
-          <div className="w-full h-full rounded-[2rem] bg-zinc-100 overflow-hidden relative border border-white/40">
+          <div className="w-full h-full rounded-[1rem] sm:rounded-[2rem] bg-zinc-100 overflow-hidden relative border border-white/40">
             <video
               autoPlay loop muted playsInline
               className="w-full h-full object-cover rounded-[2.5rem] pointer-events-none"
@@ -104,7 +106,7 @@ export default function VillasPage() {
               <source src="/villa-montage.mp4" type="video/mp4" />
             </video>
             <div className="absolute inset-0 bg-gradient-to-tr from-[#b76e79]/10 via-transparent to-transparent pointer-events-none z-10 mix-blend-multiply" />
-            <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.05)] pointer-events-none z-20 rounded-[2rem]" />
+            <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.05)] pointer-events-none z-20 rounded-[1rem] sm:rounded-[2rem]" />
           </div>
         </div>
         <div className="max-w-4xl mx-auto mt-20 text-center">
@@ -116,9 +118,9 @@ export default function VillasPage() {
 
       {/* 3. EXCLUSIVE AMENITIES SECTION */}
       <FadeInSection>
-        <section className="py-24 px-6 md:px-12 bg-white relative z-10">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 bg-white relative z-10">
           <h2
-            className="text-[#b76e79] text-5xl md:text-6xl lg:text-7xl text-center mb-16 drop-shadow-sm font-normal"
+            className="text-[#b76e79] text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center mb-10 sm:mb-16 drop-shadow-sm font-normal"
             style={{ fontFamily: "'Great Vibes', cursive" }}
           >
             Exclusive Amenities
@@ -145,13 +147,13 @@ export default function VillasPage() {
 
       {/* 4. ARCHITECT'S DRAFT BLUEPRINTS SECTION */}
       <FadeInSection>
-        <section className="py-24 px-6 md:px-12 bg-white relative z-10 border-t border-[#b76e79]/15">
-          <h2 className="text-[#b76e79] text-5xl md:text-6xl lg:text-7xl text-center mb-16 drop-shadow-sm font-normal" style={{ fontFamily: "'Great Vibes', cursive" }}>
+        <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 bg-white relative z-10 border-t border-[#b76e79]/15">
+          <h2 className="text-[#b76e79] text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center mb-10 sm:mb-16 drop-shadow-sm font-normal" style={{ fontFamily: "'Great Vibes', cursive" }}>
             Architect's Draft
           </h2>
           <div className="relative group w-full max-w-[1200px] mx-auto aspect-video transition-all duration-1000 ease-out rotate-3 group-hover:rotate-0 transform-gpu will-change-transform">
             <div className="absolute -inset-2 md:-inset-4 bg-[#b76e79] rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-1000 ease-out z-0 transform-gpu will-change-opacity"></div>
-            <div className="relative w-full h-full overflow-hidden rounded-[2rem] border-[3px] border-[#b76e79]/40 group-hover:border-[#b76e79] transition-colors duration-1000 bg-white shadow-2xl transform-gpu">
+            <div className="relative w-full h-full overflow-hidden rounded-[1rem] sm:rounded-[2rem] border-[3px] border-[#b76e79]/40 group-hover:border-[#b76e79] transition-colors duration-1000 bg-white shadow-2xl transform-gpu">
               
               {/* FIXED WRAPPER: 180 Flip (rotate-90) & Perfect Fit */}
               <div className="absolute top-1/2 left-1/2 w-[150%] h-[150%] -translate-x-1/2 -translate-y-1/2 rotate-90 flex items-center justify-center pointer-events-none">
@@ -163,7 +165,7 @@ export default function VillasPage() {
               </div>
 
               <div className="absolute inset-0 bg-[#fdfcf3] opacity-5 mix-blend-multiply pointer-events-none z-10" />
-              <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.05)] pointer-events-none z-20 rounded-[2rem]" />
+              <div className="absolute inset-0 shadow-[inset_0_0_20px_rgba(0,0,0,0.05)] pointer-events-none z-20 rounded-[1rem] sm:rounded-[2rem]" />
             </div>
           </div>
         </section>
@@ -171,7 +173,7 @@ export default function VillasPage() {
 
       {/* 5. BEDROOMS SECTION */}
       <FadeInSection>
-        <section className="py-24 px-6 md:px-12 relative z-10 bg-white border-t border-[#b76e79]/15">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 relative z-10 bg-white border-t border-[#b76e79]/15">
           <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-16 md:gap-24 items-center">
             <div className="relative flex items-center w-full">
               {bedroomIndex > 0 && (
@@ -181,7 +183,7 @@ export default function VillasPage() {
               )}
               <div className="relative group w-full aspect-[5/4]">
                 <div className="absolute -inset-2 md:-inset-4 bg-[#b76e79] rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-1000 ease-out z-0 transform-gpu will-change-opacity"></div>
-                <div className="relative w-full h-full overflow-hidden rounded-[2rem] border-[3px] border-[#b76e79]/40 group-hover:border-[#b76e79] transition-colors duration-1000 z-10 bg-white shadow-xl">
+                <div className="relative w-full h-full overflow-hidden rounded-[1rem] sm:rounded-[2rem] border-[3px] border-[#b76e79]/40 group-hover:border-[#b76e79] transition-colors duration-1000 z-10 bg-white shadow-xl">
                   <img key={`day-${bedroomIndex}`} src={bedroomSlides[bedroomIndex].day} alt="Bedroom Day" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105 animate-in fade-in duration-700 transform-gpu will-change-transform" />
                   <img key={`night-${bedroomIndex}`} src={bedroomSlides[bedroomIndex].night} alt="Bedroom Night" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-1000 ease-out transform scale-105 transform-gpu will-change-[opacity,transform]" />
                 </div>
@@ -203,7 +205,7 @@ export default function VillasPage() {
 
       {/* 6. EXTERIOR SECTION */}
       <FadeInSection>
-        <section className="py-24 px-6 md:px-12 relative z-10 bg-white border-t border-[#b76e79]/15">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 relative z-10 bg-white border-t border-[#b76e79]/15">
           <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-16 md:gap-24 items-center">
             <div className="text-left order-2 md:order-1">
               <h2 className="text-[#b76e79] text-xs uppercase tracking-[0.3em] font-bold mb-6">Exterior & Landscapes</h2>
@@ -212,7 +214,7 @@ export default function VillasPage() {
             </div>
             <div className="relative group w-full aspect-[5/4] order-1 md:order-2">
               <div className="absolute -inset-2 md:-inset-4 bg-[#b76e79] rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-1000 ease-out z-0 transform-gpu will-change-opacity"></div>
-              <div className="relative w-full h-full overflow-hidden rounded-[2rem] border-[3px] border-[#b76e79]/40 group-hover:border-[#b76e79] transition-colors duration-1000 z-10 bg-white shadow-xl">
+              <div className="relative w-full h-full overflow-hidden rounded-[1rem] sm:rounded-[2rem] border-[3px] border-[#b76e79]/40 group-hover:border-[#b76e79] transition-colors duration-1000 z-10 bg-white shadow-xl">
                 <img src="/outdoor-day.jpg" alt="Exterior Day" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105 transform-gpu will-change-transform" />
                 <img src="/outdoor-night.jpg" alt="Exterior Night" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-1000 ease-out transform scale-105 transform-gpu will-change-[opacity,transform]" />
               </div>
@@ -223,11 +225,11 @@ export default function VillasPage() {
 
       {/* 7. SPA SECTION */}
       <FadeInSection>
-        <section className="py-24 px-6 md:px-12 relative z-10 bg-white border-t border-[#b76e79]/15">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 relative z-10 bg-white border-t border-[#b76e79]/15">
           <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-16 md:gap-24 items-center">
             <div className="relative group w-full aspect-[5/4]">
               <div className="absolute -inset-2 md:-inset-4 bg-[#b76e79] rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-1000 ease-out z-0 transform-gpu will-change-opacity"></div>
-              <div className="relative w-full h-full overflow-hidden rounded-[2rem] border-[3px] border-[#b76e79]/40 group-hover:border-[#b76e79] transition-colors duration-1000 z-10 bg-white shadow-xl">
+              <div className="relative w-full h-full overflow-hidden rounded-[1rem] sm:rounded-[2rem] border-[3px] border-[#b76e79]/40 group-hover:border-[#b76e79] transition-colors duration-1000 z-10 bg-white shadow-xl">
                 <img src="/spa-day.jpg" alt="Spa Day" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105 transform-gpu will-change-transform" />
                 <img src="/spa-night.jpg" alt="Spa Night" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-1000 ease-out transform scale-105 transform-gpu will-change-[opacity,transform]" />
               </div>
@@ -243,7 +245,7 @@ export default function VillasPage() {
 
       {/* 8. GARAGE SECTION */}
       <FadeInSection>
-        <section className="py-24 px-6 md:px-12 relative z-10 bg-white border-t border-[#b76e79]/15">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 relative z-10 bg-white border-t border-[#b76e79]/15">
           <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-16 md:gap-24 items-center">
             <div className="text-left order-2 md:order-1">
               <h2 className="text-[#b76e79] text-xs uppercase tracking-[0.3em] font-bold mb-6">Curated Collector Showcase</h2>
@@ -252,7 +254,7 @@ export default function VillasPage() {
             </div>
             <div className="relative group w-full aspect-[5/4] order-1 md:order-2">
               <div className="absolute -inset-2 md:-inset-4 bg-[#b76e79] rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-1000 ease-out z-0 transform-gpu will-change-opacity"></div>
-              <div className="relative w-full h-full overflow-hidden rounded-[2rem] border-[3px] border-[#b76e79]/40 group-hover:border-[#b76e79] transition-colors duration-1000 bg-white shadow-2xl transform-gpu">
+              <div className="relative w-full h-full overflow-hidden rounded-[1rem] sm:rounded-[2rem] border-[3px] border-[#b76e79]/40 group-hover:border-[#b76e79] transition-colors duration-1000 bg-white shadow-2xl transform-gpu">
                 <img src="/garage-day.jpg" alt="Garage Day" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105 transform-gpu will-change-transform" />
                 <img src="/garage-night.jpg" alt="Garage Night" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-1000 ease-out transform scale-105 transform-gpu will-change-[opacity,transform]" />
               </div>
@@ -267,6 +269,12 @@ export default function VillasPage() {
           <ProjectShowcase />
         </div>
       </FadeInSection>
+
+      {/* 10. WHY OBSIDIAN BLADE VILLAS — Interactive Accordion */}
+      <WhyObsidianVillas />
+
+      {/* FOOTER */}
+      <Footer />
 
     </main>
   );

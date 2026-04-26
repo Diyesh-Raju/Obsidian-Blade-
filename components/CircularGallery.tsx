@@ -63,7 +63,28 @@ const properties: GalleryItem[] = [
 export default function CircularGallery() {
   const containerRef = useRef<HTMLElement>(null);
   const [rotation, setRotation] = useState(0);
-  const radius = 650;
+  const [viewport, setViewport] = useState({
+    radius: 650,
+    cardW: 320,
+    cardH: 450,
+  });
+
+  useEffect(() => {
+    const computeViewport = () => {
+      const w = window.innerWidth;
+      if (w < 640) {
+        return { radius: 260, cardW: 200, cardH: 280 };
+      }
+      if (w < 1024) {
+        return { radius: 440, cardW: 260, cardH: 370 };
+      }
+      return { radius: 650, cardW: 320, cardH: 450 };
+    };
+    setViewport(computeViewport());
+    const onResize = () => setViewport(computeViewport());
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -87,6 +108,8 @@ export default function CircularGallery() {
     return () => ctx.revert();
   }, []);
 
+  const { radius, cardW, cardH } = viewport;
+
   const anglePerItem = 360 / properties.length;
 
   return (
@@ -98,7 +121,7 @@ export default function CircularGallery() {
         <h2 className="text-[#b76e79] text-[10px] uppercase tracking-[0.3em] font-bold mb-4">
           Selected Works
         </h2>
-        <h3 className="font-clash text-4xl md:text-5xl tracking-tight text-black">
+        <h3 className="font-clash text-3xl sm:text-4xl md:text-5xl tracking-tight text-black">
           Global Portfolio
         </h3>
       </div>
@@ -126,13 +149,15 @@ export default function CircularGallery() {
             return (
               <div
                 key={i}
-                className="absolute w-[320px] h-[450px]"
+                className="absolute"
                 style={{
+                  width: `${cardW}px`,
+                  height: `${cardH}px`,
                   transform: `rotateY(${itemAngle}deg) translateZ(${radius}px)`,
                   left: "50%",
                   top: "50%",
-                  marginLeft: "-160px",
-                  marginTop: "-225px",
+                  marginLeft: `-${cardW / 2}px`,
+                  marginTop: `-${cardH / 2}px`,
                   opacity: opacity,
                   transition: "opacity 0.1s ease-out",
                 }}

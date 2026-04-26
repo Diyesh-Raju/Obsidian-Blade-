@@ -33,13 +33,24 @@ export default function RadialOrbitalTimeline({
   const [activeNodeId, setActiveNodeId] = useState<number | null>(null);
   
   const [isMounted, setIsMounted] = useState(false);
-  
+  const [orbitRadius, setOrbitRadius] = useState<number>(300);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({});
 
   useEffect(() => {
     setIsMounted(true);
+    const computeRadius = () => {
+      const w = window.innerWidth;
+      if (w < 640) return 130;
+      if (w < 1024) return 220;
+      return 300;
+    };
+    setOrbitRadius(computeRadius());
+    const onResize = () => setOrbitRadius(computeRadius());
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
   const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -110,7 +121,7 @@ export default function RadialOrbitalTimeline({
 
   const calculateNodePosition = (index: number, total: number) => {
     const angle = ((index / total) * 360 + rotationAngle) % 360;
-    const radius = 300; 
+    const radius = orbitRadius;
     const radian = (angle * Math.PI) / 180;
 
     const x = Number((radius * Math.cos(radian) + centerOffset.x).toFixed(2));
@@ -147,12 +158,12 @@ export default function RadialOrbitalTimeline({
   };
 
   if (!isMounted) {
-    return <div className="w-full h-[800px] bg-white"></div>;
+    return <div className="w-full h-[500px] sm:h-[700px] lg:h-[800px] bg-white"></div>;
   }
 
   return (
     <div
-      className="w-full h-[800px] flex flex-col items-center justify-center bg-white overflow-hidden relative"
+      className="w-full h-[500px] sm:h-[700px] lg:h-[800px] flex flex-col items-center justify-center bg-white overflow-hidden relative"
       ref={containerRef}
       onClick={handleContainerClick}
     >
@@ -176,7 +187,10 @@ export default function RadialOrbitalTimeline({
           </div>
 
           {/* ORBIT RING */}
-          <div className="absolute w-[600px] h-[600px] rounded-full border border-[#b76e79]/40 shadow-[0_0_30px_rgba(183,110,121,0.05)_inset]"></div>
+          <div
+            className="absolute rounded-full border border-[#b76e79]/40 shadow-[0_0_30px_rgba(183,110,121,0.05)_inset]"
+            style={{ width: `${orbitRadius * 2}px`, height: `${orbitRadius * 2}px` }}
+          ></div>
 
           {timelineData.map((item, index) => {
             const position = calculateNodePosition(index, timelineData.length);
@@ -220,7 +234,7 @@ export default function RadialOrbitalTimeline({
                 {/* THE NODE ITSELF: Scaled up to massive w-20 h-20 (80px) with custom radiant shadows */}
                 <div
                   className={`
-                  relative w-20 h-20 rounded-full flex items-center justify-center
+                  relative w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full flex items-center justify-center
                   ${
                     isExpanded
                       ? "bg-[#b76e79] text-white"
@@ -240,15 +254,14 @@ export default function RadialOrbitalTimeline({
                   ${isExpanded ? "scale-[1.25]" : "hover:scale-110 hover:border-[#b76e79] hover:shadow-[0_0_25px_rgba(183,110,121,0.6)]"}
                 `}
                 >
-                  {/* Icon scaled up to 32px to match massive circle */}
-                  <Icon size={32} />
+                  <Icon size={orbitRadius < 200 ? 20 : orbitRadius < 280 ? 28 : 32} />
                 </div>
 
                 {/* NODE LABEL: Pushed down further (top-24) to avoid overlapping the new massive node */}
                 <div
                   className={`
-                  absolute top-24 whitespace-nowrap left-1/2 -translate-x-1/2
-                  text-sm font-medium tracking-wider
+                  absolute top-14 sm:top-20 lg:top-24 whitespace-nowrap left-1/2 -translate-x-1/2
+                  text-[10px] sm:text-xs lg:text-sm font-medium tracking-wider
                   transition-all duration-300
                   ${isExpanded ? "text-[#b76e79] scale-110 font-bold" : "text-[#b76e79]/90"}
                 `}
@@ -256,9 +269,9 @@ export default function RadialOrbitalTimeline({
                   {item.title}
                 </div>
 
-                {/* EXPANDED CARD: Pushed down to top-32 so it doesn't clip the giant node */}
+                {/* EXPANDED CARD */}
                 {isExpanded && (
-                  <Card className="absolute top-32 left-1/2 -translate-x-1/2 w-64 bg-white/95 backdrop-blur-xl border-[#b76e79]/20 shadow-2xl shadow-[#b76e79]/10 overflow-visible">
+                  <Card className="absolute top-20 sm:top-28 lg:top-32 left-1/2 -translate-x-1/2 w-52 sm:w-60 lg:w-64 bg-white/95 backdrop-blur-xl border-[#b76e79]/20 shadow-2xl shadow-[#b76e79]/10 overflow-visible">
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-px h-4 bg-[#b76e79]/30"></div>
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-center">
