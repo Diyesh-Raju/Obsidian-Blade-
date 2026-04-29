@@ -12,13 +12,12 @@ export default function Footer() {
     const node = footerRef.current;
     if (!node) return;
 
+    // Replay-on-rescroll: toggle isRevealed every time the footer enters or
+    // leaves the viewport, instead of disconnecting after the first hit.
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsRevealed(true);
-            observer.disconnect();
-          }
+          setIsRevealed(entry.isIntersecting);
         });
       },
       { rootMargin: "0px 0px -5% 0px", threshold: 0.05 }
@@ -26,12 +25,13 @@ export default function Footer() {
 
     observer.observe(node);
 
-    // Belt-and-suspenders fallback: if the observer hasn't fired within 1.5s
-    // of mount (iOS Safari occasionally drops the first observation when the
-    // node is far below the fold), reveal anyway.
+    // iOS Safari sometimes drops the first observation when the node mounts
+    // far below the fold. If we haven't been revealed yet but the footer is
+    // already on-screen, force the initial reveal — subsequent toggles still
+    // come through the live observer above.
     const timeout = window.setTimeout(() => {
       const rect = node.getBoundingClientRect();
-      if (rect.top < window.innerHeight) setIsRevealed(true);
+      if (rect.top < window.innerHeight && rect.bottom > 0) setIsRevealed(true);
     }, 1500);
 
     return () => {

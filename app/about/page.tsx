@@ -28,12 +28,11 @@ function Reveal({
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
+    // Replay on every re-entry: toggle shown based on intersection state
+    // rather than disconnecting after the first reveal.
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setShown(true);
-          io.disconnect();
-        }
+        setShown(entry.isIntersecting);
       },
       { rootMargin: "0px 0px -10% 0px", threshold: 0.12 }
     );

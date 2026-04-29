@@ -3,8 +3,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 import { useThemeStore } from "@/lib/theme-store";
 import { getLenis } from "@/lib/lenis-instance";
@@ -41,25 +39,28 @@ export function LuxuryNavbar() {
   };
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    // Compute progress straight from the document's scroll position so the
+    // bar reaches 100% only when the viewport bottom hits the document
+    // bottom. GSAP ScrollTrigger on document.body misreported under Lenis's
+    // virtual scroll wrapper, which let the bar fill early.
+    const update = () => {
+      const doc = document.documentElement;
+      const max = Math.max(doc.scrollHeight, document.body.scrollHeight) -
+        window.innerHeight;
+      const y = window.scrollY;
+      const progress = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
+      const el = progressRef.current;
+      if (el) el.style.transform = `scaleX(${progress})`;
+      setIsScrolled(y >= 50);
+    };
 
-    gsap.to(progressRef.current, {
-      width: "100%",
-      ease: "none",
-      scrollTrigger: {
-        trigger: document.body,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 0,
-      },
-    });
-
-    const handleScroll = () => setIsScrolled(window.scrollY >= 50);
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
     };
   }, []);
 
@@ -132,7 +133,8 @@ export function LuxuryNavbar() {
 
         {/* DESKTOP CONNECT BUTTON */}
         <div className="hidden md:block z-10">
-          <button
+          <Link
+            href="/contact"
             className={cn(
               "px-8 py-3 rounded-full border-none outline-none text-xs tracking-widest uppercase transition-all duration-500 shadow-md",
               isCinemaMode
@@ -140,8 +142,8 @@ export function LuxuryNavbar() {
                 : "bg-[#b76e79] hover:bg-[#a05d68] text-white hover:shadow-[0_0_15px_rgba(183,110,121,0.4)]"
             )}
           >
-            Connect
-          </button>
+            Contact Us
+          </Link>
         </div>
 
         {/* MOBILE HAMBURGER */}
@@ -178,7 +180,11 @@ export function LuxuryNavbar() {
 
         {/* SCROLL PROGRESS TRACKER */}
         <div className="absolute bottom-0 left-0 w-full h-[2px] bg-transparent pointer-events-none">
-          <div ref={progressRef} className="h-full bg-[#b76e79]/40 w-0" />
+          <div
+            ref={progressRef}
+            className="h-full w-full origin-left bg-gradient-to-r from-[#b76e79] via-[#e8b4bc] to-[#b76e79] shadow-[0_0_10px_rgba(183,110,121,0.9),0_0_20px_rgba(183,110,121,0.55)]"
+            style={{ transform: "scaleX(0)" }}
+          />
         </div>
       </nav>
 
@@ -222,14 +228,14 @@ export function LuxuryNavbar() {
               })}
             </div>
 
-            <button
-              type="button"
+            <Link
+              href="/contact"
               onClick={() => setMenuOpen(false)}
-              className="mt-10 bg-[#b76e79] text-white py-4 rounded-full text-xs tracking-[0.3em] uppercase font-semibold shadow-md active:scale-[0.98] transition-transform touch-manipulation"
+              className="mt-10 bg-[#b76e79] text-white py-4 rounded-full text-xs tracking-[0.3em] uppercase font-semibold shadow-md active:scale-[0.98] transition-transform touch-manipulation text-center"
               style={{ WebkitTapHighlightColor: "transparent" }}
             >
-              Connect
-            </button>
+              Contact Us
+            </Link>
           </div>
         </div>
       )}

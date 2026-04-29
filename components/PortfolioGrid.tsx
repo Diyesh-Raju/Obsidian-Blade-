@@ -32,7 +32,9 @@ export default function PortfolioGrid() {
           ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 75%", // Triggers when the section is 75% down the screen
+            start: "top 75%",
+            end: "bottom 15%",
+            toggleActions: "play reverse play reverse",
           },
         }
       );

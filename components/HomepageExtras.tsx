@@ -30,17 +30,18 @@ export default function HomepageExtras() {
       if (!sections) return;
 
       sections.forEach((section) => {
-        gsap.fromTo(
-          section,
-          { y: 50, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1.2,
-            ease: "power3.out",
-            scrollTrigger: { trigger: section, start: "top 85%" },
-          }
-        );
+        gsap.from(section, {
+          y: 50,
+          opacity: 0,
+          duration: 1.2,
+          ease: "power3.out",
+          immediateRender: false,
+          scrollTrigger: {
+            trigger: section,
+            start: "top 90%",
+            once: true,
+          },
+        });
       });
     },
     { scope: containerRef }
