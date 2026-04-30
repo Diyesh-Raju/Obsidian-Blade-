@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useLayoutEffect, useCallback, forwardRef } from "react";
+import { createPortal } from "react-dom";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getLenis } from "@/lib/lenis-instance";
@@ -54,6 +55,7 @@ const ProjectCard = forwardRef<HTMLDivElement, ProjectCardProps>(
           zIndex: 10 + index,
           left: "-40px",
           top: "-56px",
+          pointerEvents: isVisible ? "auto" : "none",
         }}
         onClick={(e) => {
           e.stopPropagation();
@@ -165,20 +167,27 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
       if (e.key === "ArrowRight") navigateNext();
       if (e.key === "ArrowLeft") navigatePrev();
     };
-    const blockTouch = (e: TouchEvent) => e.preventDefault();
     window.addEventListener("keydown", handleKeyDown);
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      getLenis()?.stop();
-      window.addEventListener("touchmove", blockTouch, { passive: false });
-    }
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, handleClose, navigateNext, navigatePrev]);
+
+  // Scroll-lock side effects are isolated to a separate effect that depends
+  // ONLY on isOpen. The previous combined effect re-ran whenever navigation
+  // callbacks changed identity (every slide), which churned Lenis stop/start
+  // and could leave it stopped if a render unmounted the component mid-cycle.
+  useEffect(() => {
+    if (!isOpen) return;
+    const blockTouch = (e: TouchEvent) => e.preventDefault();
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    getLenis()?.stop();
+    window.addEventListener("touchmove", blockTouch, { passive: false });
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("touchmove", blockTouch);
-      document.body.style.overflow = "";
+      document.body.style.overflow = prevOverflow;
       getLenis()?.start();
     };
-  }, [isOpen, handleClose, navigateNext, navigatePrev]);
+  }, [isOpen]);
 
   useLayoutEffect(() => {
     if (isOpen && sourceRect) {
@@ -203,6 +212,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
   };
 
   if (!shouldRender || !currentProject) return null;
+  if (typeof document === "undefined") return null;
 
   const getInitialStyles = (): React.CSSProperties => {
     if (!sourceRect) return {};
@@ -232,9 +242,9 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
 
   const currentStyles = animationPhase === "initial" && !isClosing ? getInitialStyles() : getFinalStyles();
 
-  return (
+  return createPortal(
     <div
-      className={cn("fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8")}
+      className={cn("fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8")}
       onClick={handleClose}
       style={{
         opacity: isClosing ? 0 : 1,
@@ -242,7 +252,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
       }}
     >
       <div
-        className="absolute inset-0 bg-white/95 backdrop-blur-2xl"
+        className="absolute inset-0 bg-white backdrop-blur-2xl"
         style={{
           opacity: animationPhase === "initial" && !isClosing ? 0 : 1,
           transition: "opacity 600ms cubic-bezier(0.16, 1, 0.3, 1)",
@@ -357,7 +367,8 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

@@ -34,6 +34,7 @@ export default function RadialOrbitalTimeline({
   
   const [isMounted, setIsMounted] = useState(false);
   const [orbitRadius, setOrbitRadius] = useState<number>(300);
+  const [inView, setInView] = useState(true);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
@@ -51,6 +52,17 @@ export default function RadialOrbitalTimeline({
     const onResize = () => setOrbitRadius(computeRadius());
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
   }, []);
 
   const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -95,7 +107,7 @@ export default function RadialOrbitalTimeline({
   };
 
   useEffect(() => {
-    if (!autoRotate || viewMode !== "orbital") return;
+    if (!autoRotate || viewMode !== "orbital" || !inView) return;
 
     let rafId = 0;
     let lastTime = performance.now();
@@ -110,7 +122,7 @@ export default function RadialOrbitalTimeline({
 
     rafId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafId);
-  }, [autoRotate, viewMode]);
+  }, [autoRotate, viewMode, inView]);
 
   const centerViewOnNode = (nodeId: number) => {
     if (viewMode !== "orbital" || !nodeRefs.current[nodeId]) return;

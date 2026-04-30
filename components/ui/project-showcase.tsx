@@ -88,15 +88,26 @@ export function ProjectShowcase() {
   };
 
   useEffect(() => {
+    if (hoveredIndex === null) return;
+
     const lerp = (start: number, end: number, factor: number) => {
       return start + (end - start) * factor;
     };
 
     const animate = () => {
-      setSmoothPosition((prev) => ({
-        x: lerp(prev.x, mousePosition.x, 0.15),
-        y: lerp(prev.y, mousePosition.y, 0.15),
-      }));
+      setSmoothPosition((prev) => {
+        const next = {
+          x: lerp(prev.x, mousePosition.x, 0.15),
+          y: lerp(prev.y, mousePosition.y, 0.15),
+        };
+        if (
+          Math.abs(next.x - mousePosition.x) < 0.5 &&
+          Math.abs(next.y - mousePosition.y) < 0.5
+        ) {
+          return { x: mousePosition.x, y: mousePosition.y };
+        }
+        return next;
+      });
       animationRef.current = requestAnimationFrame(animate);
     };
 
@@ -107,7 +118,7 @@ export function ProjectShowcase() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [mousePosition]);
+  }, [mousePosition, hoveredIndex]);
 
   useEffect(() => {
     const hoveredProject = projects[hoveredIndex ?? -1];
