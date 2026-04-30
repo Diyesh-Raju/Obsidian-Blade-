@@ -607,7 +607,7 @@ export default function AboutPage() {
               Selected Press
             </span>
             <h2 className="font-clash text-3xl md:text-4xl font-semibold tracking-tight leading-tight max-w-2xl mx-auto">
-              Written about, rarely interviewed.
+              Written by, rarely interviewed.
             </h2>
           </div>
         </Reveal>

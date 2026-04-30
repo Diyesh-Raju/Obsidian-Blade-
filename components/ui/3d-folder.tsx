@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, useLayoutEffect, useCallback, forwardRef } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getLenis } from "@/lib/lenis-instance";
 
 // --- Interfaces ---
 
@@ -164,11 +165,18 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
       if (e.key === "ArrowRight") navigateNext();
       if (e.key === "ArrowLeft") navigatePrev();
     };
+    const blockTouch = (e: TouchEvent) => e.preventDefault();
     window.addEventListener("keydown", handleKeyDown);
-    if (isOpen) document.body.style.overflow = "hidden";
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      getLenis()?.stop();
+      window.addEventListener("touchmove", blockTouch, { passive: false });
+    }
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("touchmove", blockTouch);
       document.body.style.overflow = "";
+      getLenis()?.start();
     };
   }, [isOpen, handleClose, navigateNext, navigatePrev]);
 
