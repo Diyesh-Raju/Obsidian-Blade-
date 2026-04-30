@@ -53,7 +53,6 @@ export default function CommercialPage() {
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.load();
       videoRef.current.play().catch((error) => {
         console.warn("Video autoplay was prevented by the browser:", error);
       });
@@ -81,7 +80,9 @@ export default function CommercialPage() {
           loop
           muted
           playsInline
-          preload="auto"
+          autoPlay
+          preload="metadata"
+          poster="/commercial-video-poster.jpg"
           className="absolute inset-0 w-full h-full object-cover z-0"
         />
 

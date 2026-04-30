@@ -100,6 +100,8 @@ export default function VillasPage() {
           <div className="w-full h-full rounded-[1rem] sm:rounded-[2rem] bg-black overflow-hidden relative border border-white/40">
             <video
               autoPlay loop muted playsInline
+              preload="metadata"
+              poster="/villa-montage-poster.jpg"
               className="w-full h-full object-cover pointer-events-none"
               style={{ transform: "translate3d(0, 0, 0)", backfaceVisibility: "hidden", perspective: 1000, WebkitTransform: "translate3d(0, 0, 0)", WebkitBackfaceVisibility: "hidden" }}
             >

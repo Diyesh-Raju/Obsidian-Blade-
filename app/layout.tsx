@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 // 1. Import the Luxury Navbar (sits OUTSIDE the scroll wrapper)
@@ -104,6 +105,7 @@ export default function RootLayout({
 
         {/* Everything else is wrapped in cinematic smooth scroll */}
         <SmoothScroll>{children}</SmoothScroll>
+        <Analytics />
       </ThemeBody>
     </html>
   );

@@ -95,9 +95,10 @@ export default function ResidentialPage() {
             src={slide}
             alt={`Residential luxury view ${index + 1}`}
             fill
-            priority={index === 0} 
-            unoptimized={true} 
-            style={{ imageRendering: "auto" }}
+            sizes="100vw"
+            loading="eager"
+            fetchPriority={index === 0 ? "high" : "auto"}
+            quality={75}
             className={`object-cover transition-opacity duration-1000 ease-in-out ${
               index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
