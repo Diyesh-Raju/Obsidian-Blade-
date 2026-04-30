@@ -11,7 +11,6 @@ const NAV_LINKS = [
   { name: "Villa Projects", href: "/villas" },
   { name: "Residential", href: "/residential" },
   { name: "Commercial", href: "/commercial" },
-  { name: "Investors", href: "/investors" },
   { name: "About", href: "/about" },
 ];
 
@@ -136,7 +135,7 @@ export function LuxuryNavbar() {
           <Link
             href="/contact"
             className={cn(
-              "px-8 py-3 rounded-full border-none outline-none text-xs tracking-widest uppercase transition-all duration-500 shadow-md",
+              "heartbeateffect px-8 py-3 rounded-full border-none outline-none text-xs tracking-widest uppercase transition-all duration-500 shadow-md",
               isCinemaMode
                 ? "bg-[#b76e79] text-black shadow-[0_0_20px_rgba(183,110,121,0.3)] hover:shadow-[0_0_25px_rgba(183,110,121,0.5)]"
                 : "bg-[#b76e79] hover:bg-[#a05d68] text-white hover:shadow-[0_0_15px_rgba(183,110,121,0.4)]"
@@ -231,7 +230,7 @@ export function LuxuryNavbar() {
             <Link
               href="/contact"
               onClick={() => setMenuOpen(false)}
-              className="mt-10 bg-[#b76e79] text-white py-4 rounded-full text-xs tracking-[0.3em] uppercase font-semibold shadow-md active:scale-[0.98] transition-transform touch-manipulation text-center"
+              className="heartbeateffect mt-10 bg-[#b76e79] text-white py-4 rounded-full text-xs tracking-[0.3em] uppercase font-semibold shadow-md active:scale-[0.98] transition-transform touch-manipulation text-center"
               style={{ WebkitTapHighlightColor: "transparent" }}
             >
               Contact Us

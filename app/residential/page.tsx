@@ -109,7 +109,7 @@ export default function ResidentialPage() {
         <div className="absolute inset-0 z-30 flex flex-col items-center justify-center text-center px-4 pointer-events-none">
           <h1
             className="text-white text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-normal drop-shadow-xl tracking-wide leading-[1.05]"
-            style={{ fontFamily: "'Great Vibes', cursive" }}
+            style={{ fontFamily: "'Cinzel Decorative', serif" }}
           >
             Residential Towers
           </h1>
@@ -124,7 +124,7 @@ export default function ResidentialPage() {
         <div className="text-center mb-10">
           <h2 
             className="text-[#b76e79] text-4xl sm:text-5xl md:text-6xl font-normal drop-shadow-sm"
-            style={{ fontFamily: "'Great Vibes', cursive" }}
+            style={{ fontFamily: "'Cinzel Decorative', serif" }}
           >
             Our Guarantees
           </h2>
@@ -138,11 +138,14 @@ export default function ResidentialPage() {
       </section>
       
       {/* --- FEATURED PROPERTIES GRID --- */}
-      <section className="py-24 bg-zinc-50 relative z-10 border-t border-zinc-200">
+      <section
+        id="current-collections"
+        className="scroll-mt-24 py-24 bg-zinc-50 relative z-10 border-t border-zinc-200"
+      >
         <div className="text-center mb-16">
           <h2 
             className="text-[#b76e79] text-4xl sm:text-5xl md:text-6xl font-normal drop-shadow-sm"
-            style={{ fontFamily: "'Great Vibes', cursive" }}
+            style={{ fontFamily: "'Cinzel Decorative', serif" }}
           >
             Current Collections
           </h2>

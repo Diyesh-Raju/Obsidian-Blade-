@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { ImageLightbox, type Project as LightboxProject } from "@/components/ui/3d-folder";
 
 interface Project {
   title: string;
@@ -49,8 +50,42 @@ export function ProjectShowcase() {
   const [smoothPosition, setSmoothPosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
+  const rowRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const animationRef = useRef<number | null>(null);
   const [subImageIndex, setSubImageIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [sourceRect, setSourceRect] = useState<DOMRect | null>(null);
+
+  const lightboxProjects: LightboxProject[] = projects.map((p, i) => ({
+    id: `commission-${i}`,
+    title: p.title,
+    image: Array.isArray(p.image) ? p.image[0] : p.image,
+  }));
+
+  const handleProjectClick = (e: React.MouseEvent, index: number) => {
+    e.preventDefault();
+    const previewEl = previewRef.current;
+    const rowEl = rowRefs.current[index];
+    const rect =
+      isVisible && previewEl
+        ? previewEl.getBoundingClientRect()
+        : rowEl?.getBoundingClientRect() ?? null;
+    setSourceRect(rect);
+    setSelectedIndex(index);
+  };
+
+  const handleCloseLightbox = () => {
+    setSelectedIndex(null);
+  };
+
+  const handleCloseComplete = () => {
+    setSourceRect(null);
+  };
+
+  const handleNavigate = (newIndex: number) => {
+    setSelectedIndex(newIndex);
+  };
 
   useEffect(() => {
     const lerp = (start: number, end: number, factor: number) => {
@@ -132,13 +167,14 @@ export function ProjectShowcase() {
           {/* Changed header to pure white */}
           <h2 
             className="text-white text-5xl md:text-6xl text-center drop-shadow-md font-normal"
-            style={{ fontFamily: "'Great Vibes', cursive" }}
+            style={{ fontFamily: "'Cinzel Decorative', serif" }}
           >
             Previous Commissions
           </h2>
         </div>
 
         <div
+          ref={previewRef}
           // Changed border to crisp white outline (border-white/50)
           className="pointer-events-none fixed z-50 overflow-hidden rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border-2 border-white/50"
           style={{
@@ -204,10 +240,12 @@ export function ProjectShowcase() {
           {projects.map((project, index) => (
             <a
               key={project.title}
+              ref={(el) => { rowRefs.current[index] = el; }}
               href={project.link}
-              className="group block"
+              className="group block cursor-pointer"
               onMouseEnter={() => handleMouseEnter(index)}
               onMouseLeave={handleMouseLeave}
+              onClick={(e) => handleProjectClick(e, index)}
             >
               {/* Changed list item border to clean white (border-white/30) */}
               <div className="relative py-8 border-t border-white/30 transition-all duration-300 ease-out">
@@ -272,6 +310,16 @@ export function ProjectShowcase() {
           <div className="border-t border-white/30" />
         </div>
       </div>
+
+      <ImageLightbox
+        projects={lightboxProjects}
+        currentIndex={selectedIndex ?? 0}
+        isOpen={selectedIndex !== null}
+        onClose={handleCloseLightbox}
+        sourceRect={sourceRect}
+        onCloseComplete={handleCloseComplete}
+        onNavigate={handleNavigate}
+      />
     </section>
   );
 }

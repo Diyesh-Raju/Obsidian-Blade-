@@ -70,15 +70,17 @@ export function FeaturedProperties() {
 
                 {/* Button 1: View Details */}
                 <Link href={`/residential/${property.title.toLowerCase().replace(/\s+/g, '-')}`}>
-                  <Button className="bg-[#b76e79] hover:bg-[#a05d68] text-white w-36 sm:w-40 rounded-full shadow-lg md:transform md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500 delay-75">
+                  <Button className="heartbeateffect bg-[#b76e79] hover:bg-[#a05d68] text-white w-36 sm:w-40 rounded-full shadow-lg md:transform md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500 delay-75">
                     View Details
                   </Button>
                 </Link>
 
-                {/* Button 2: Enquire Now */}
-                <Button className="bg-[#b76e79] hover:bg-[#a05d68] text-white w-36 sm:w-40 rounded-full shadow-lg md:transform md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500 delay-100">
-                  Enquire Now
-                </Button>
+                {/* Button 2: Enquire Now → contact page */}
+                <Link href="/contact">
+                  <Button className="heartbeateffect bg-[#b76e79] hover:bg-[#a05d68] text-white w-36 sm:w-40 rounded-full shadow-lg md:transform md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500 delay-100">
+                    Enquire Now
+                  </Button>
+                </Link>
 
               </div>
 

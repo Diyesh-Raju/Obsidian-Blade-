@@ -97,7 +97,7 @@ interface ImageLightboxProps {
   onNavigate: (index: number) => void;
 }
 
-const ImageLightbox: React.FC<ImageLightboxProps> = ({
+export const ImageLightbox: React.FC<ImageLightboxProps> = ({
   projects,
   currentIndex,
   isOpen,
@@ -545,7 +545,7 @@ export function FloorplanFolders() {
         <div className="text-center mb-16">
           <h2
             className="text-[#b76e79] text-5xl md:text-6xl font-normal drop-shadow-sm"
-            style={{ fontFamily: "'Great Vibes', cursive" }}
+            style={{ fontFamily: "'Cinzel Decorative', serif" }}
           >
             Floorplans
           </h2>

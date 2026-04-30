@@ -8,7 +8,6 @@ const navLinks = [
   { name: "Villa Projects", path: "/villas" },
   { name: "Residential", path: "/residential" },
   { name: "Commercial", path: "/commercial" },
-  { name: "Investors", path: "/investors" },
   { name: "About", path: "/about" },
 ];
 
@@ -106,7 +105,7 @@ export default function Navbar() {
         <Link
           href="/contact"
           onClick={(e) => handleNavClick(e, "/contact")}
-          className={`px-8 py-3 text-xs uppercase tracking-widest font-bold hidden md:block transition-all duration-1000 ${
+          className={`heartbeateffect px-8 py-3 text-xs uppercase tracking-widest font-bold hidden md:block transition-all duration-1000 ${
             isGlobalCinemaMode
               ? "bg-[#b76e79] text-[#0a0a0a] rounded-full shadow-[0_0_20px_rgba(183,110,121,0.3)] border border-[#b76e79]" // CINEMA MODE: Solid Rose Gold
               : "glass-button" // DEFAULT: Liquid Glass

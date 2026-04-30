@@ -15,7 +15,7 @@ export default function PropertyPage({ params }: { params: Promise<{ slug: strin
       <PropertyDetails slug={resolvedParams.slug} />
       
       <section className="py-20 text-center border-t border-zinc-100">
-        <a href="/residential" className="text-zinc-400 hover:text-[#b76e79] transition-colors text-sm tracking-widest uppercase">
+        <a href="/residential#current-collections" className="text-zinc-400 hover:text-[#b76e79] transition-colors text-sm tracking-widest uppercase">
           ← Back to Collections
         </a>
       </section>

@@ -66,15 +66,6 @@ export default function Footer() {
       ],
     },
     {
-      title: "INVESTOR RELATIONS",
-      links: [
-        { label: "Portfolio Overview", href: "#" },
-        { label: "NRI Services", href: "#" },
-        { label: "Annual Reports", href: "#" },
-        { label: "Contact IR", href: "#" },
-      ],
-    },
-    {
       title: "CONCIERGE",
       links: [
         { label: "Private Viewings", href: "#" },
@@ -168,7 +159,7 @@ export default function Footer() {
           </div>
 
           {/* Links Columns */}
-          <div className="w-full xl:w-2/3 grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8 sm:gap-8 xl:pl-12">
+          <div className="w-full xl:w-2/3 grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-8 sm:gap-8 xl:pl-12">
             {footerLinks.map((section, colIdx) => (
               <div
                 key={section.title}
@@ -217,7 +208,7 @@ export default function Footer() {
 
         {/* BOTTOM SECTION: Socials & Copyright */}
         <div className={`flex flex-col md:flex-row justify-between items-center text-[10px] sm:text-xs tracking-widest uppercase text-zinc-500 py-6 sm:py-8 gap-5 md:gap-0 ${revealClass("delay-1000")}`}>
-          <div className="flex space-x-5 sm:space-x-6">
+          <div className="flex gap-8 sm:gap-10">
             {socialLinks.map(({ icon, label, href }) => (
               <a
                 key={label}

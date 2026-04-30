@@ -7,6 +7,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Footer from "@/components/Footer";
+import { VerticalImageStack } from "@/components/ui/vertical-image-stack";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -107,24 +108,32 @@ const leadership = [
     role: "Founding Principal",
     image:
       "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=900",
+    description:
+      "Founder of the studio. Sets the architectural vision for every commission and stays involved from first site walk through twentieth-year facade detail.",
   },
   {
     name: "Isabelle Laurent",
     role: "Design Director",
     image:
       "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=900",
+    description:
+      "Trained in Paris and Tokyo. Leads the studio's design language — European restraint paired with Japanese precision in every sketch.",
   },
   {
     name: "Rohan Desai",
     role: "Head of Engineering",
     image:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=900",
+    description:
+      "Two decades of structural and environmental engineering, from coastal estates to high-altitude residences. Translates ambition into structure that quietly endures.",
   },
   {
     name: "Mira Okonkwo",
     role: "Curatorial Lead, Interiors",
     image:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=900",
+    description:
+      "Sources from over forty ateliers worldwide. Treats every interior as a single continuous atmosphere — never a sum of furnishings.",
   },
 ];
 
@@ -273,7 +282,7 @@ export default function AboutPage() {
               Architecture <br />
               <span
                 className="italic font-normal text-[#b76e79]"
-                style={{ fontFamily: "'Great Vibes', cursive", fontWeight: 400 }}
+                style={{ fontFamily: "'Cinzel Decorative', serif", fontWeight: 400 }}
               >
                 as quiet
               </span>{" "}
@@ -299,23 +308,44 @@ export default function AboutPage() {
       {/* ============ 2. MANIFESTO ============ */}
       <section className="py-20 sm:py-32 md:py-44 px-4 sm:px-4 sm:px-6 md:px-16 lg:px-24 bg-white relative">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-10 sm:gap-16 lg:gap-32">
-          <Reveal>
-            <div className="lg:sticky lg:top-28 self-start">
-              <span className="text-[10px] uppercase tracking-[0.35em] text-[#b76e79] font-medium mb-6 block">
-                The Manifesto
-              </span>
-              <h2 className="font-clash text-3xl md:text-4xl font-semibold leading-[1.15] tracking-tight text-zinc-900">
-                We do not sell houses. <br />
-                We commission <br />
-                <span
-                  className="italic font-normal text-[#b76e79]"
-                  style={{ fontFamily: "'Great Vibes', cursive" }}
-                >
-                  signatures in stone.
+          <div>
+            <Reveal>
+              <div>
+                <span className="text-[10px] uppercase tracking-[0.35em] text-[#b76e79] font-medium mb-6 block">
+                  The Manifesto
                 </span>
-              </h2>
+                <h2 className="font-clash text-3xl md:text-4xl font-semibold leading-[1.15] tracking-tight text-zinc-900">
+                  We do not sell houses. <br />
+                  We commission <br />
+                  <span
+                    className="italic font-normal text-[#b76e79]"
+                    style={{ fontFamily: "'Cinzel Decorative', serif" }}
+                  >
+                    signatures in stone.
+                  </span>
+                </h2>
+              </div>
+            </Reveal>
+
+            {/* Circular fountain image — static (no scroll animation), positioned in the left
+                column at roughly the height of the "firm was founded in 1995" paragraph. */}
+            <div className="mt-12 sm:mt-14 lg:mt-16 flex justify-center lg:justify-start">
+              <div
+                className="relative w-80 h-80 sm:w-96 sm:h-96 lg:w-[28rem] lg:h-[28rem] xl:w-[30rem] xl:h-[30rem] rounded-full overflow-hidden shadow-[0_0_60px_rgba(183,110,121,0.6),0_0_120px_rgba(183,110,121,0.35)]"
+                style={{ outline: "6px solid #b76e79", outlineOffset: "2px" }}
+              >
+                <Image
+                  src="/about-fountain.png"
+                  alt="Stone fountain at twilight, lit garden path"
+                  fill
+                  sizes="(max-width: 1024px) 24rem, 30rem"
+                  className="object-cover"
+                  unoptimized
+                />
+                <div className="absolute inset-0 ring-2 ring-inset ring-[#d8a3ad]/60 rounded-full pointer-events-none" />
+              </div>
             </div>
-          </Reveal>
+          </div>
 
           <Reveal delay={120}>
             <div className="space-y-8 text-zinc-600 text-lg md:text-xl leading-[1.75] font-light max-w-[58ch]">
@@ -448,7 +478,7 @@ export default function AboutPage() {
                 A studio that <br />
                 <span
                   className="italic font-normal text-[#b76e79]"
-                  style={{ fontFamily: "'Great Vibes', cursive" }}
+                  style={{ fontFamily: "'Cinzel Decorative', serif" }}
                 >
                   refuses to scale.
                 </span>
@@ -505,7 +535,7 @@ export default function AboutPage() {
                   Four voices. <br />
                   <span
                     className="italic font-normal text-[#b76e79]"
-                    style={{ fontFamily: "'Great Vibes', cursive" }}
+                    style={{ fontFamily: "'Cinzel Decorative', serif" }}
                   >
                     One drawing table.
                   </span>
@@ -517,6 +547,26 @@ export default function AboutPage() {
               </p>
             </div>
           </Reveal>
+
+          {/* NEW: vertical image stack with side-panel bio (replaces the grid).
+              To REVERSE — restore the original grid by deleting the
+              <VerticalImageStack /> below and uncommenting the JSX in the
+              comment block right under it. */}
+          <Reveal>
+            <VerticalImageStack
+              items={leadership.map((p, i) => ({
+                id: i + 1,
+                src: p.image,
+                alt: p.name,
+                name: p.name,
+                role: p.role,
+                description: p.description,
+              }))}
+            />
+          </Reveal>
+
+          {/* ORIGINAL GRID — kept here so "reverse" can restore it cleanly.
+              Uncomment the JSX below and delete the <VerticalImageStack> above.
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {leadership.map((p, i) => (
@@ -544,6 +594,8 @@ export default function AboutPage() {
               </Reveal>
             ))}
           </div>
+
+          */}
         </div>
       </section>
 
@@ -588,7 +640,7 @@ export default function AboutPage() {
               If our philosophy <br /> resonates,{" "}
               <span
                 className="italic font-normal text-[#b76e79]"
-                style={{ fontFamily: "'Great Vibes', cursive" }}
+                style={{ fontFamily: "'Cinzel Decorative', serif" }}
               >
                 we should meet.
               </span>

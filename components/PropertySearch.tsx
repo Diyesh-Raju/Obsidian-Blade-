@@ -344,7 +344,7 @@ export default function PropertySearch() {
           {/* Search Button */}
           <button
             type="button"
-            className="glass-button mt-10 py-4 w-full text-xs uppercase tracking-[0.2em] font-bold"
+            className="heartbeateffect glass-button mt-10 py-4 w-full text-xs uppercase tracking-[0.2em] font-bold"
           >
             Find Property
           </button>

@@ -117,7 +117,7 @@ export default function HomepageExtras() {
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-light tracking-tight mb-5 sm:mb-6 leading-tight">Ready to initiate your next project?</h2>
           <p className="text-zinc-500 mb-8 sm:mb-10 text-base sm:text-lg">Connect with our architectural advisory board to discuss your portfolio requirements.</p>
-          <a href="/contact" className="inline-block glass-button rounded-full px-10 py-4 text-xs uppercase tracking-[0.2em] font-bold">
+          <a href="/contact" className="heartbeateffect inline-block glass-button rounded-full px-10 py-4 text-xs uppercase tracking-[0.2em] font-bold">
             Schedule a Consultation
           </a>
         </div>

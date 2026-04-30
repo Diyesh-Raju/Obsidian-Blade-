@@ -95,12 +95,12 @@ export default function VillasPage() {
         className={`py-32 px-6 md:px-12 relative transition-all duration-1000 ${isHoveringBubble ? "z-50" : "z-10"}`}
       >
         <div
-          className={`w-full max-w-[1400px] mx-auto aspect-video rounded-[1.5rem] sm:rounded-[3rem] p-3 sm:p-6 backdrop-blur-xl border border-[#b76e79]/30 transition-all duration-[1200ms] ease-in-out transform-gpu ${isHoveringBubble ? "bg-transparent border-[#b76e79] border-opacity-100 shadow-[0_0_20px_10px_rgba(183,110,121,1),0_0_100px_10px_rgba(183,110,121,0.15)] scale-[1.02]" : "bg-white/50 border-opacity-30 shadow-[0_20px_60px_-15px_rgba(183,110,121,0.15)] hover:shadow-[0_30px_80px_-15px_rgba(183,110,121,0.25)]"}`}
+          className={`w-full max-w-[1500px] mx-auto aspect-[21/9] max-h-[75vh] rounded-[1.5rem] sm:rounded-[3rem] p-3 sm:p-6 backdrop-blur-xl border border-[#b76e79]/30 transition-all duration-[1200ms] ease-in-out transform-gpu ${isHoveringBubble ? "bg-transparent border-[#b76e79] border-opacity-100 shadow-[0_0_20px_10px_rgba(183,110,121,1),0_0_100px_10px_rgba(183,110,121,0.15)] scale-[1.02]" : "bg-white/50 border-opacity-30 shadow-[0_20px_60px_-15px_rgba(183,110,121,0.15)] hover:shadow-[0_30px_80px_-15px_rgba(183,110,121,0.25)]"}`}
         >
-          <div className="w-full h-full rounded-[1rem] sm:rounded-[2rem] bg-zinc-100 overflow-hidden relative border border-white/40">
+          <div className="w-full h-full rounded-[1rem] sm:rounded-[2rem] bg-black overflow-hidden relative border border-white/40">
             <video
               autoPlay loop muted playsInline
-              className="w-full h-full object-cover rounded-[2.5rem] pointer-events-none"
+              className="w-full h-full object-cover pointer-events-none"
               style={{ transform: "translate3d(0, 0, 0)", backfaceVisibility: "hidden", perspective: 1000, WebkitTransform: "translate3d(0, 0, 0)", WebkitBackfaceVisibility: "hidden" }}
             >
               <source src="/villa-montage.mp4" type="video/mp4" />
@@ -121,7 +121,7 @@ export default function VillasPage() {
         <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 bg-white relative z-10">
           <h2
             className="text-[#b76e79] text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center mb-10 sm:mb-16 drop-shadow-sm font-normal"
-            style={{ fontFamily: "'Great Vibes', cursive" }}
+            style={{ fontFamily: "'Cinzel Decorative', serif" }}
           >
             Exclusive Amenities
           </h2>
@@ -148,7 +148,7 @@ export default function VillasPage() {
       {/* 4. ARCHITECT'S DRAFT BLUEPRINTS SECTION */}
       <FadeInSection>
         <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 bg-white relative z-10 border-t border-[#b76e79]/15">
-          <h2 className="text-[#b76e79] text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center mb-10 sm:mb-16 drop-shadow-sm font-normal" style={{ fontFamily: "'Great Vibes', cursive" }}>
+          <h2 className="text-[#b76e79] text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-center mb-10 sm:mb-16 drop-shadow-sm font-normal" style={{ fontFamily: "'Cinzel Decorative', serif" }}>
             Architect's Draft
           </h2>
           <div className="relative group w-full max-w-[1200px] mx-auto aspect-video transition-all duration-1000 ease-out rotate-3 group-hover:rotate-0 transform-gpu will-change-transform">
@@ -195,7 +195,12 @@ export default function VillasPage() {
               )}
             </div>
             <div className="text-left">
-              <h2 className="text-[#b76e79] text-xs uppercase tracking-[0.3em] font-bold mb-6">Bedrooms & Sanctuaries</h2>
+              <h2
+                className="text-[#b76e79] text-4xl sm:text-5xl md:text-6xl mb-6 sm:mb-8 drop-shadow-sm font-normal leading-tight -translate-y-10 sm:-translate-y-14 md:-translate-y-20"
+                style={{ fontFamily: "'Cinzel Decorative', serif" }}
+              >
+                Bedrooms & Sanctuaries
+              </h2>
               <p className="text-zinc-600 text-base md:text-lg leading-relaxed font-light mb-6">Our villa bedrooms are sanctuary-like havens, engineered for seamless atmospheric transitions and absolute acoustic tranquility.</p>
               <p className="text-zinc-600 text-base md:text-lg leading-relaxed font-light">As evening falls, the ambiance melts into a state of sophisticated repose, casting a warm glow that highlights the rich textures of raw silk walls and brushed rose-gold hardware.</p>
             </div>
@@ -208,7 +213,12 @@ export default function VillasPage() {
         <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 relative z-10 bg-white border-t border-[#b76e79]/15">
           <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-16 md:gap-24 items-center">
             <div className="text-left order-2 md:order-1">
-              <h2 className="text-[#b76e79] text-xs uppercase tracking-[0.3em] font-bold mb-6">Exterior & Landscapes</h2>
+              <h2
+                className="text-[#b76e79] text-4xl sm:text-5xl md:text-6xl mb-6 sm:mb-8 drop-shadow-sm font-normal leading-tight -translate-y-10 sm:-translate-y-14 md:-translate-y-20"
+                style={{ fontFamily: "'Cinzel Decorative', serif" }}
+              >
+                Exterior & Landscapes
+              </h2>
               <p className="text-zinc-600 text-base md:text-lg leading-relaxed font-light mb-6">Our villa's outdoor spaces are private sanctuaries, engineered for seamless connection to the natural world and absolute atmospheric control.</p>
               <p className="text-zinc-600 text-base md:text-lg leading-relaxed font-light">As twilight descends, the exterior transforms into a state of sophisticated repose. Curated warm uplighting activates, highlighting the lush gardens.</p>
             </div>
@@ -235,7 +245,12 @@ export default function VillasPage() {
               </div>
             </div>
             <div className="text-left">
-              <h2 className="text-[#b76e79] text-xs uppercase tracking-[0.3em] font-bold mb-6">Wellness Sanctuaries</h2>
+              <h2
+                className="text-[#b76e79] text-4xl sm:text-5xl md:text-6xl mb-6 sm:mb-8 drop-shadow-sm font-normal leading-tight -translate-y-10 sm:-translate-y-14 md:-translate-y-20"
+                style={{ fontFamily: "'Cinzel Decorative', serif" }}
+              >
+                Wellness Sanctuaries
+              </h2>
               <p className="text-zinc-600 text-base md:text-lg leading-relaxed font-light mb-6">Our villa estates feature bespoke wellness pavilions designed to rival the world's most exclusive spas, surrounded by rich cedar woodwork.</p>
               <p className="text-zinc-600 text-base md:text-lg leading-relaxed font-light">Every element is meticulously crafted for holistic rejuvenation, offering an uninterrupted escape from the outside world.</p>
             </div>
@@ -248,7 +263,12 @@ export default function VillasPage() {
         <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 relative z-10 bg-white border-t border-[#b76e79]/15">
           <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-16 md:gap-24 items-center">
             <div className="text-left order-2 md:order-1">
-              <h2 className="text-[#b76e79] text-xs uppercase tracking-[0.3em] font-bold mb-6">Curated Collector Showcase</h2>
+              <h2
+                className="text-[#b76e79] text-4xl sm:text-5xl md:text-6xl mb-6 sm:mb-8 drop-shadow-sm font-normal leading-tight -translate-y-10 sm:-translate-y-14 md:-translate-y-20"
+                style={{ fontFamily: "'Cinzel Decorative', serif" }}
+              >
+                Curated Collector Showcase
+              </h2>
               <p className="text-zinc-600 text-base md:text-lg leading-relaxed font-light mb-6">The villa's entry sequence is engineered as a private showcase for a discerning vehicle collection, harmonizing the modern architecture.</p>
               <p className="text-zinc-600 text-base md:text-lg leading-relaxed font-light">Twilight descends, turning the driveway and garage entrance into an architectural display of private, secluded luxury and impeccable design.</p>
             </div>

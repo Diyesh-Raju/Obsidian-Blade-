@@ -60,6 +60,30 @@ const PROPERTY_DB: Record<string, any> = {
     heroImage: "/residential-3.jpg",
     location: "Central Park Avenue",
     description: "Aura Botanica blends sustainable architecture with uncompromising luxury. Featuring cascading vertical gardens, advanced climate-responsive facades, and locally sourced premium materials, this property allows you to live at the intersection of ecological responsibility and high-end elegance."
+  },
+  "the-apex-spire": {
+    title: "The Apex Spire",
+    subtitle: "Grade-A Corporate Tower",
+    heroImage: "/commercial-1.png",
+    location: "Central Business Quarter",
+    description: "The Apex Spire is rising as the new benchmark for high-performance corporate architecture. Engineered around a triple-glazed, daylight-optimized facade, the tower delivers column-free floor plates, sky lobbies, and dedicated executive helipads. Currently under construction, every system — from the regenerative elevators to the rainwater-fed cooling loops — is built for the next decade of work.",
+    gallery: ["/commercial-1.png", "/commercial-3.png", "/commercial-2.png", "/commercial-skyline.jpg"]
+  },
+  "cotier-pavilion": {
+    title: "Cotier Pavilion",
+    subtitle: "Luxury Retail Concourse",
+    heroImage: "/commercial-2.png",
+    location: "Marina Boulevard",
+    description: "Cotier Pavilion redefines the flagship retail experience. A sweeping, light-ribboned arrival concourse welcomes hand-selected luxury brands into oversized storefronts framed in bookmatched marble and warm rift-cut oak. Designed for couture houses and premier automotive showrooms alike, the pavilion is a stage where the world's most desirable brands meet their most discerning clientele.",
+    gallery: ["/commercial-2.png", "/commercial-3.png", "/commercial-1.png", "/commercial-skyline.jpg"]
+  },
+  "helios-crown": {
+    title: "Helios Crown",
+    subtitle: "Mixed-Use Skyscraper",
+    heroImage: "/commercial-3.png",
+    location: "Skyline District",
+    description: "Helios Crown is a vertical city — Grade-A offices, signature hospitality, and skyline residences stacked beneath a crowned, illuminated cornice that becomes a fixture of the city's silhouette. The deeply mullioned glass facade and integrated golden lightwork are tuned for evening drama without compromising daytime efficiency, making it equally arresting at noon and midnight.",
+    gallery: ["/commercial-3.png", "/commercial-1.png", "/commercial-2.png", "/commercial-skyline.jpg"]
   }
 };
 
@@ -83,7 +107,7 @@ export function PropertyDetails({ slug }: { slug?: string }) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent" />
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-center text-white w-full px-4">
-          <h1 className="text-5xl md:text-7xl font-normal mb-4 drop-shadow-lg" style={{ fontFamily: "'Great Vibes', cursive" }}>
+          <h1 className="text-5xl md:text-7xl font-normal mb-4 drop-shadow-lg" style={{ fontFamily: "'Cinzel Decorative', serif" }}>
             {property.title}
           </h1>
           <p className="tracking-[0.2em] uppercase text-sm font-medium drop-shadow-md text-white/90">
@@ -185,15 +209,14 @@ export function PropertyDetails({ slug }: { slug?: string }) {
         {activeTab === "gallery" && (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {[1, 2, 3, 4].map((num) => (
-                <div key={num} className={cn(
+              {(property.gallery ?? [1, 2, 3, 4].map((n) => `/residential-${n}.jpg`)).map((src: string, i: number) => (
+                <div key={i} className={cn(
                   "relative rounded-2xl overflow-hidden bg-zinc-100 transition-transform duration-500 hover:scale-[1.02]",
-                  num === 1 ? "md:col-span-2 md:row-span-2 aspect-square md:aspect-auto" : "aspect-square"
+                  i === 0 ? "md:col-span-2 md:row-span-2 aspect-square md:aspect-auto" : "aspect-square"
                 )}>
-                  {/* Using the available images for the gallery */}
                   <Image
-                    src={`/residential-${num}.jpg`}
-                    alt={`Gallery ${num}`}
+                    src={src}
+                    alt={`Gallery ${i + 1}`}
                     fill
                     className="object-cover"
                     unoptimized
