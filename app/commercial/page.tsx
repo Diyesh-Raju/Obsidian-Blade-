@@ -167,7 +167,7 @@ export default function CommercialPage() {
           <div className="absolute -left-1/2 top-1/2 aspect-[1/0.7] w-[200%] rounded-[100%] border-t border-indigo-900/10 bg-white" />
           {/* Sparkles fill the area, themselves masked into a softer falloff */}
           <Sparkles
-            density={6500}
+            density={1500}
             className="absolute inset-x-0 bottom-0 h-full w-full [mask-image:radial-gradient(70%_70%,white,transparent_98%)]"
             color="#6366f1"
             size={1.2}
@@ -176,7 +176,7 @@ export default function CommercialPage() {
 
         {/* Bottom-fill sparkles — covers the white space below the dome and along the section floor */}
         <Sparkles
-          density={4000}
+          density={900}
           className="pointer-events-none absolute inset-x-0 bottom-0 h-[28rem] w-full [mask-image:linear-gradient(to_top,white_55%,transparent)]"
           color="#6366f1"
           size={1}

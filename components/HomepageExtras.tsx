@@ -22,7 +22,7 @@ const faqs = [
 
 export default function HomepageExtras() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useGSAP(
     () => {
@@ -53,21 +53,22 @@ export default function HomepageExtras() {
       {/* TESTIMONIALS */}
       <section className="reveal-section py-20 sm:py-32 px-4 sm:px-8 md:px-24 bg-zinc-50 border-t border-rosegold/20">
         <h2 className="text-xs uppercase tracking-[0.3em] text-boxrose mb-16 text-center">Client Trust</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-10 md:gap-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 md:gap-14 max-w-7xl mx-auto">
           {testimonials.map((t, i) => (
             <article
               key={i}
-              className="flex flex-col justify-between p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2.5rem] bg-white/40 backdrop-blur-xl shadow-xl shadow-rosegold/5 transition-transform duration-500 hover:-translate-y-2"
+              className="flex flex-col justify-between p-8 sm:p-10 md:p-12 min-h-[320px] sm:min-h-[360px] rounded-[2rem] sm:rounded-[3rem] bg-white/40 backdrop-blur-xl shadow-xl shadow-[#b76e79]/20 transition-transform duration-500 hover:-translate-y-2"
               style={{
-                border: "1px solid transparent",
-                background: "linear-gradient(white, white) padding-box, linear-gradient(to right, #b76e79, #a47774) border-box",
-                borderRadius: "2.5rem",
+                border: "2px solid transparent",
+                background: "linear-gradient(white, white) padding-box, linear-gradient(to right, #d98a96, #b76e79, #d98a96) border-box",
+                borderRadius: "3rem",
+                boxShadow: "0 0 24px rgba(217,138,150,0.25), 0 20px 50px -15px rgba(183,110,121,0.25)",
               }}
             >
-              <span className="text-base sm:text-lg font-light leading-relaxed text-zinc-700 mb-6 sm:mb-8 block">&ldquo;{t.quote}&rdquo;</span>
+              <span className="text-lg sm:text-xl font-light leading-relaxed text-zinc-700 mb-8 sm:mb-10 block">&ldquo;{t.quote}&rdquo;</span>
               <div>
-                <span className="font-medium text-sm block">{t.author}</span>
-                <span className="text-xs text-zinc-500 mt-1 block">{t.title}</span>
+                <span className="font-medium text-base block">{t.author}</span>
+                <span className="text-sm text-zinc-500 mt-1 block">{t.title}</span>
               </div>
             </article>
           ))}

@@ -95,20 +95,21 @@ export default function RadialOrbitalTimeline({
   };
 
   useEffect(() => {
-    let rotationTimer: NodeJS.Timeout;
+    if (!autoRotate || viewMode !== "orbital") return;
 
-    if (autoRotate && viewMode === "orbital") {
-      rotationTimer = setInterval(() => {
-        setRotationAngle((prev) => {
-          const newAngle = (prev + 0.3) % 360;
-          return Number(newAngle.toFixed(3));
-        });
-      }, 50);
-    }
+    let rafId = 0;
+    let lastTime = performance.now();
+    const degreesPerSecond = 6;
 
-    return () => {
-      if (rotationTimer) clearInterval(rotationTimer);
+    const tick = (now: number) => {
+      const dt = now - lastTime;
+      lastTime = now;
+      setRotationAngle((prev) => (prev + (degreesPerSecond * dt) / 1000) % 360);
+      rafId = requestAnimationFrame(tick);
     };
+
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
   }, [autoRotate, viewMode]);
 
   const centerViewOnNode = (nodeId: number) => {
@@ -200,18 +201,19 @@ export default function RadialOrbitalTimeline({
             const Icon = item.icon;
 
             const nodeStyle = {
-              transform: `translate(${position.x}px, ${position.y}px)`,
+              transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
               zIndex: isExpanded ? 200 : position.zIndex,
               opacity: isExpanded ? 1 : position.opacity,
+              willChange: "transform, opacity",
             };
 
             return (
               <div
                 key={item.id}
                 ref={(el: HTMLDivElement | null) => { nodeRefs.current[item.id] = el; }}
-                className="absolute transition-all duration-700 cursor-pointer flex flex-col items-center justify-center"
+                className="absolute cursor-pointer flex flex-col items-center justify-center"
                 style={nodeStyle}
-                suppressHydrationWarning 
+                suppressHydrationWarning
                 onClick={(e) => {
                   e.stopPropagation();
                   toggleItem(item.id);

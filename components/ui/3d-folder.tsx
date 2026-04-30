@@ -371,11 +371,21 @@ const AnimatedFolder: React.FC<AnimatedFolderProps> = ({ title, projects, classN
 
   const previewProjects = projects.slice(0, 5);
 
+  const folderRef = useRef<HTMLDivElement>(null);
+
   const handleProjectClick = (project: Project, index: number) => {
     const cardEl = cardRefs.current[index];
     if (cardEl) setSourceRect(cardEl.getBoundingClientRect());
     setSelectedIndex(index);
     setHiddenCardId(project.id);
+  };
+
+  const handleFolderClick = () => {
+    if (selectedIndex !== null || projects.length === 0) return;
+    const folderEl = folderRef.current;
+    if (folderEl) setSourceRect(folderEl.getBoundingClientRect());
+    setSelectedIndex(0);
+    setHiddenCardId(projects[0].id);
   };
 
   const handleCloseLightbox = () => { setSelectedIndex(null); setSourceRect(null); };
@@ -389,6 +399,7 @@ const AnimatedFolder: React.FC<AnimatedFolderProps> = ({ title, projects, classN
   return (
     <>
       <div
+        ref={folderRef}
         className={cn(
           "relative flex flex-col items-center justify-center p-8 rounded-2xl cursor-pointer bg-[#faf8f8] border border-[#b76e79]/15 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-2xl hover:shadow-[#b76e79]/20 hover:border-[#b76e79]/40 group",
           className
@@ -401,6 +412,7 @@ const AnimatedFolder: React.FC<AnimatedFolderProps> = ({ title, projects, classN
         }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        onClick={handleFolderClick}
       >
         <div
           className="absolute inset-0 rounded-2xl transition-opacity duration-700"
