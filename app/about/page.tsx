@@ -335,12 +335,11 @@ export default function AboutPage() {
                 style={{ outline: "6px solid #b76e79", outlineOffset: "2px" }}
               >
                 <Image
-                  src="/about-fountain.png"
+                  src="/about-fountain.jpg"
                   alt="Stone fountain at twilight, lit garden path"
                   fill
                   sizes="(max-width: 1024px) 24rem, 30rem"
                   className="object-cover"
-                  unoptimized
                 />
                 <div className="absolute inset-0 ring-2 ring-inset ring-[#d8a3ad]/60 rounded-full pointer-events-none" />
               </div>

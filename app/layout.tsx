@@ -12,6 +12,11 @@ import { SmoothScroll } from "@/components/ui/smooth-scroll";
 // 3. Import the client-side theme body wrapper
 import { ThemeBody } from "@/components/ThemeBody";
 
+// 4. Force scroll-to-top on every route change (overrides Lenis-induced
+//    position retention so /residential never lands at the previous page's
+//    bottom).
+import { ScrollToTopOnRouteChange } from "@/components/ScrollToTopOnRouteChange";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -102,6 +107,9 @@ export default function RootLayout({
         {/* CRITICAL: Navbar stays OUTSIDE the Lenis scroll wrapper.
             Fixed positioning breaks inside Lenis's virtual scroll container. */}
         <LuxuryNavbar />
+
+        {/* Resets scroll on every pathname change. */}
+        <ScrollToTopOnRouteChange />
 
         {/* Everything else is wrapped in cinematic smooth scroll */}
         <SmoothScroll>{children}</SmoothScroll>

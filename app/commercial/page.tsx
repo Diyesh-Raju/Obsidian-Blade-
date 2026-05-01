@@ -74,6 +74,11 @@ export default function CommercialPage() {
     <main className="bg-white">
       {/* THE 100VH CINEMATIC VIDEO HERO */}
       <section className="relative h-screen w-full overflow-hidden bg-black">
+        {/* Preload the hero video as soon as the page boots so it starts
+            arriving in parallel with HTML/CSS instead of after first paint.
+            The poster image already covers the visual gap; this just makes
+            the gap shorter on the deployed build. */}
+        <link rel="preload" as="video" href="/commercial-video.mp4" type="video/mp4" />
         <video
           ref={videoRef}
           src="/commercial-video.mp4"
@@ -81,7 +86,7 @@ export default function CommercialPage() {
           muted
           playsInline
           autoPlay
-          preload="metadata"
+          preload="auto"
           poster="/commercial-video-poster.jpg"
           className="absolute inset-0 w-full h-full object-cover z-0"
         />

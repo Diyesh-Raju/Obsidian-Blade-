@@ -96,8 +96,13 @@ export default function ResidentialPage() {
             alt={`Residential luxury view ${index + 1}`}
             fill
             sizes="100vw"
+            // Slide 0 is the LCP — fetched at high priority so the hero
+            // paints instantly. Remaining slides stay eager (the carousel
+            // rotates every 2s, so they need to be ready) but at low
+            // priority so they don't compete with the first paint.
+            priority={index === 0}
             loading="eager"
-            fetchPriority={index === 0 ? "high" : "auto"}
+            fetchPriority={index === 0 ? "high" : "low"}
             quality={75}
             className={`object-cover transition-opacity duration-1000 ease-in-out ${
               index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"

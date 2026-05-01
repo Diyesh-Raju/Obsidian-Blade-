@@ -77,7 +77,7 @@ export function FeaturedCommercial() {
                 src={property.image}
                 alt={property.title}
                 fill
-                unoptimized
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
               />
 

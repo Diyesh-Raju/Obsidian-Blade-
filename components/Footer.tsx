@@ -125,14 +125,14 @@ export default function Footer() {
 
   return (
     <footer ref={footerRef} className="bg-zinc-950 relative w-full overflow-hidden border-t border-zinc-900">
-      {/* Background Image — unoptimized so the full-fidelity source is served */}
+      {/* Footer is below the fold on every page — drop priority so it doesn't
+          steal bandwidth from the hero, and let Next.js serve AVIF/WebP. */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
         <Image
           src="/footer-bg.jpg"
           alt=""
           fill
-          priority
-          unoptimized
+          loading="lazy"
           sizes="100vw"
           className="object-cover object-center"
         />

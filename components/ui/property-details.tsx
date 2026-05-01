@@ -99,11 +99,12 @@ export function PropertyDetails({ slug }: { slug?: string }) {
       {/* --- 1. HERO IMAGE GALLERY --- */}
       <section className="relative w-full h-[70vh] bg-zinc-100 overflow-hidden">
         <Image
-          src={property.heroImage} 
+          src={property.heroImage}
           alt={property.title}
           fill
+          priority
+          sizes="100vw"
           className="object-cover"
-          unoptimized
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent" />
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-center text-white w-full px-4">
@@ -153,7 +154,7 @@ export function PropertyDetails({ slug }: { slug?: string }) {
                 {property.description}
               </p>
               <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl">
-                <Image src={property.heroImage} alt="Interior" fill className="object-cover" unoptimized />
+                <Image src={property.heroImage} alt="Interior" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
               </div>
             </div>
           </div>
@@ -218,8 +219,8 @@ export function PropertyDetails({ slug }: { slug?: string }) {
                     src={src}
                     alt={`Gallery ${i + 1}`}
                     fill
+                    sizes="(max-width: 768px) 50vw, 33vw"
                     className="object-cover"
-                    unoptimized
                   />
                 </div>
               ))}

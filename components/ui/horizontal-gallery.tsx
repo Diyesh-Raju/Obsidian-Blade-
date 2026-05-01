@@ -76,7 +76,7 @@ export function HorizontalGallery() {
               src={item.src}
               alt={item.alt}
               fill
-              unoptimized
+              sizes="(max-width: 640px) 80vw, (max-width: 768px) 60vw, 40vw"
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
             />
             {/* Subtle vignette overlay */}
