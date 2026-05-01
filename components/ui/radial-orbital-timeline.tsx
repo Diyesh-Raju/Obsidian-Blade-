@@ -39,6 +39,54 @@ export default function RadialOrbitalTimeline({
   const containerRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
   const nodeRefs = useRef<Record<number, HTMLDivElement | null>>({});
+  const rotationRef = useRef<number>(0);
+  const tweenRafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    rotationRef.current = rotationAngle;
+  }, [rotationAngle]);
+
+  useEffect(() => {
+    return () => {
+      if (tweenRafRef.current !== null) {
+        cancelAnimationFrame(tweenRafRef.current);
+        tweenRafRef.current = null;
+      }
+    };
+  }, []);
+
+  const tweenRotationTo = (target: number) => {
+    if (tweenRafRef.current !== null) {
+      cancelAnimationFrame(tweenRafRef.current);
+      tweenRafRef.current = null;
+    }
+
+    const start = rotationRef.current;
+    const delta = ((target - start) % 360 + 540) % 360 - 180;
+    if (Math.abs(delta) < 0.01) return;
+
+    const duration = 750;
+    let startTime: number | null = null;
+    const easeInOutCubic = (t: number) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    const tick = (now: number) => {
+      if (startTime === null) startTime = now;
+      const elapsed = now - startTime;
+      const t = Math.min(1, elapsed / duration);
+      const eased = easeInOutCubic(t);
+      const next = start + delta * eased;
+      rotationRef.current = next;
+      setRotationAngle(next);
+      if (t < 1) {
+        tweenRafRef.current = requestAnimationFrame(tick);
+      } else {
+        tweenRafRef.current = null;
+      }
+    };
+
+    tweenRafRef.current = requestAnimationFrame(tick);
+  };
 
   useEffect(() => {
     setIsMounted(true);
@@ -70,6 +118,10 @@ export default function RadialOrbitalTimeline({
       setExpandedItems({});
       setActiveNodeId(null);
       setPulseEffect({});
+      if (tweenRafRef.current !== null) {
+        cancelAnimationFrame(tweenRafRef.current);
+        tweenRafRef.current = null;
+      }
       setAutoRotate(true);
     }
   };
@@ -98,6 +150,10 @@ export default function RadialOrbitalTimeline({
         centerViewOnNode(id);
       } else {
         setActiveNodeId(null);
+        if (tweenRafRef.current !== null) {
+          cancelAnimationFrame(tweenRafRef.current);
+          tweenRafRef.current = null;
+        }
         setAutoRotate(true);
         setPulseEffect({});
       }
@@ -129,7 +185,7 @@ export default function RadialOrbitalTimeline({
     const nodeIndex = timelineData.findIndex((item) => item.id === nodeId);
     const totalNodes = timelineData.length;
     const targetAngle = (nodeIndex / totalNodes) * 360;
-    setRotationAngle(270 - targetAngle);
+    tweenRotationTo(270 - targetAngle);
   };
 
   const calculateNodePosition = (index: number, total: number) => {
