@@ -59,12 +59,66 @@ export default function VillasPage() {
   ];
   const [bedroomIndex, setBedroomIndex] = useState(0);
 
-  const nextBedroom = () => setBedroomIndex((prev) => Math.min(prev + 1, bedroomSlides.length - 1));
-  const prevBedroom = () => setBedroomIndex((prev) => Math.max(prev - 1, 0));
+  // Mobile-only tap-to-toggle day/night for each image pair
+  const [bedroomNight, setBedroomNight] = useState(false);
+  const [exteriorNight, setExteriorNight] = useState(false);
+  const [spaNight, setSpaNight] = useState(false);
+  const [garageNight, setGarageNight] = useState(false);
+
+  const nextBedroom = () => {
+    setBedroomIndex((prev) => Math.min(prev + 1, bedroomSlides.length - 1));
+    setBedroomNight(false);
+  };
+  const prevBedroom = () => {
+    setBedroomIndex((prev) => Math.max(prev - 1, 0));
+    setBedroomNight(false);
+  };
+
+  // Ref for the actual video bubble (mobile-only black overlay trigger)
+  const montageBubbleRef = useRef<HTMLDivElement>(null);
 
   // Clean up on unmount: ensure theme resets if user navigates away while hovering
   useEffect(() => {
     return () => setHoveringBubble(false);
+  }, [setHoveringBubble]);
+
+  // Mobile-only: turn the screen black while the villa montage video is in view.
+  // Mirrors the desktop hover behavior using IntersectionObserver, gated to phone widths.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(max-width: 767px)");
+    let observer: IntersectionObserver | null = null;
+
+    const enable = () => {
+      if (observer || !montageBubbleRef.current) return;
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          setHoveringBubble(entry.isIntersecting);
+        },
+        { threshold: 0.15 }
+      );
+      observer.observe(montageBubbleRef.current);
+    };
+    const disable = () => {
+      if (observer) {
+        observer.disconnect();
+        observer = null;
+      }
+      setHoveringBubble(false);
+    };
+
+    if (mq.matches) enable();
+
+    const onChange = (e: MediaQueryListEvent) => {
+      if (e.matches) enable();
+      else disable();
+    };
+    mq.addEventListener?.("change", onChange);
+
+    return () => {
+      mq.removeEventListener?.("change", onChange);
+      disable();
+    };
   }, [setHoveringBubble]);
 
   return (
@@ -95,6 +149,7 @@ export default function VillasPage() {
         className={`py-32 px-6 md:px-12 relative transition-all duration-1000 ${isHoveringBubble ? "z-50" : "z-10"}`}
       >
         <div
+          ref={montageBubbleRef}
           className={`w-full max-w-[1500px] mx-auto aspect-[21/9] max-h-[75vh] rounded-[1.5rem] sm:rounded-[3rem] p-3 sm:p-6 backdrop-blur-xl border border-[#b76e79]/30 transition-all duration-[1200ms] ease-in-out transform-gpu ${isHoveringBubble ? "bg-transparent border-[#b76e79] border-opacity-100 shadow-[0_0_20px_10px_rgba(183,110,121,1),0_0_100px_10px_rgba(183,110,121,0.15)] scale-[1.02]" : "bg-white/50 border-opacity-30 shadow-[0_20px_60px_-15px_rgba(183,110,121,0.15)] hover:shadow-[0_30px_80px_-15px_rgba(183,110,121,0.25)]"}`}
         >
           <div className="w-full h-full rounded-[1rem] sm:rounded-[2rem] bg-black overflow-hidden relative border border-white/40">
@@ -183,11 +238,19 @@ export default function VillasPage() {
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 md:w-10 md:h-10"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
                 </button>
               )}
-              <div className="relative group w-full aspect-[5/4]">
+              <div
+                className="relative group w-full aspect-[5/4] md:cursor-default cursor-pointer select-none"
+                onClick={() => setBedroomNight((v) => !v)}
+                role="button"
+                aria-label="Toggle bedroom day or night"
+              >
                 <div className="absolute -inset-2 md:-inset-4 bg-[#b76e79] rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-1000 ease-out z-0 transform-gpu will-change-opacity"></div>
                 <div className="relative w-full h-full overflow-hidden rounded-[1rem] sm:rounded-[2rem] border-[3px] border-[#b76e79]/40 group-hover:border-[#b76e79] transition-colors duration-1000 z-10 bg-white shadow-xl">
                   <img key={`day-${bedroomIndex}`} src={bedroomSlides[bedroomIndex].day} alt="Bedroom Day" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105 animate-in fade-in duration-700 transform-gpu will-change-transform" />
-                  <img key={`night-${bedroomIndex}`} src={bedroomSlides[bedroomIndex].night} alt="Bedroom Night" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-1000 ease-out transform scale-105 transform-gpu will-change-[opacity,transform]" />
+                  <img key={`night-${bedroomIndex}`} src={bedroomSlides[bedroomIndex].night} alt="Bedroom Night" className={`absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-1000 ease-out transform scale-105 transform-gpu will-change-[opacity,transform] ${bedroomNight ? "max-md:opacity-100" : ""}`} />
+                  <span className="md:hidden absolute bottom-3 right-3 text-white/70 text-[10px] uppercase tracking-[0.3em] font-medium pointer-events-none z-20" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}>
+                    {bedroomNight ? "Tap" : "Click"}
+                  </span>
                 </div>
               </div>
               {bedroomIndex < bedroomSlides.length - 1 && (
@@ -224,11 +287,19 @@ export default function VillasPage() {
               <p className="text-zinc-600 text-base md:text-lg leading-relaxed font-light mb-6">Our villa's outdoor spaces are private sanctuaries, engineered for seamless connection to the natural world and absolute atmospheric control.</p>
               <p className="text-zinc-600 text-base md:text-lg leading-relaxed font-light">As twilight descends, the exterior transforms into a state of sophisticated repose. Curated warm uplighting activates, highlighting the lush gardens.</p>
             </div>
-            <div className="relative group w-full aspect-[5/4] order-1 md:order-2">
+            <div
+              className="relative group w-full aspect-[5/4] order-1 md:order-2 md:cursor-default cursor-pointer select-none"
+              onClick={() => setExteriorNight((v) => !v)}
+              role="button"
+              aria-label="Toggle exterior day or night"
+            >
               <div className="absolute -inset-2 md:-inset-4 bg-[#b76e79] rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-1000 ease-out z-0 transform-gpu will-change-opacity"></div>
               <div className="relative w-full h-full overflow-hidden rounded-[1rem] sm:rounded-[2rem] border-[3px] border-[#b76e79]/40 group-hover:border-[#b76e79] transition-colors duration-1000 z-10 bg-white shadow-xl">
                 <img src="/outdoor-day.jpg" alt="Exterior Day" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105 transform-gpu will-change-transform" />
-                <img src="/outdoor-night.jpg" alt="Exterior Night" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-1000 ease-out transform scale-105 transform-gpu will-change-[opacity,transform]" />
+                <img src="/outdoor-night.jpg" alt="Exterior Night" className={`absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-1000 ease-out transform scale-105 transform-gpu will-change-[opacity,transform] ${exteriorNight ? "max-md:opacity-100" : ""}`} />
+                <span className="md:hidden absolute bottom-3 right-3 text-white/70 text-[10px] uppercase tracking-[0.3em] font-medium pointer-events-none z-20" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}>
+                  {exteriorNight ? "Tap" : "Click"}
+                </span>
               </div>
             </div>
           </div>
@@ -239,11 +310,19 @@ export default function VillasPage() {
       <FadeInSection>
         <section className="py-16 sm:py-24 px-4 sm:px-6 md:px-12 relative z-10 bg-white border-t border-[#b76e79]/15">
           <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-16 md:gap-24 items-center">
-            <div className="relative group w-full aspect-[5/4]">
+            <div
+              className="relative group w-full aspect-[5/4] md:cursor-default cursor-pointer select-none"
+              onClick={() => setSpaNight((v) => !v)}
+              role="button"
+              aria-label="Toggle spa day or night"
+            >
               <div className="absolute -inset-2 md:-inset-4 bg-[#b76e79] rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-1000 ease-out z-0 transform-gpu will-change-opacity"></div>
               <div className="relative w-full h-full overflow-hidden rounded-[1rem] sm:rounded-[2rem] border-[3px] border-[#b76e79]/40 group-hover:border-[#b76e79] transition-colors duration-1000 z-10 bg-white shadow-xl">
                 <img src="/spa-day.jpg" alt="Spa Day" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105 transform-gpu will-change-transform" />
-                <img src="/spa-night.jpg" alt="Spa Night" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-1000 ease-out transform scale-105 transform-gpu will-change-[opacity,transform]" />
+                <img src="/spa-night.jpg" alt="Spa Night" className={`absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-1000 ease-out transform scale-105 transform-gpu will-change-[opacity,transform] ${spaNight ? "max-md:opacity-100" : ""}`} />
+                <span className="md:hidden absolute bottom-3 right-3 text-white/70 text-[10px] uppercase tracking-[0.3em] font-medium pointer-events-none z-20" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}>
+                  {spaNight ? "Tap" : "Click"}
+                </span>
               </div>
             </div>
             <div className="text-left">
@@ -274,11 +353,19 @@ export default function VillasPage() {
               <p className="text-zinc-600 text-base md:text-lg leading-relaxed font-light mb-6">The villa's entry sequence is engineered as a private showcase for a discerning vehicle collection, harmonizing the modern architecture.</p>
               <p className="text-zinc-600 text-base md:text-lg leading-relaxed font-light">Twilight descends, turning the driveway and garage entrance into an architectural display of private, secluded luxury and impeccable design.</p>
             </div>
-            <div className="relative group w-full aspect-[5/4] order-1 md:order-2">
+            <div
+              className="relative group w-full aspect-[5/4] order-1 md:order-2 md:cursor-default cursor-pointer select-none"
+              onClick={() => setGarageNight((v) => !v)}
+              role="button"
+              aria-label="Toggle garage day or night"
+            >
               <div className="absolute -inset-2 md:-inset-4 bg-[#b76e79] rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-1000 ease-out z-0 transform-gpu will-change-opacity"></div>
               <div className="relative w-full h-full overflow-hidden rounded-[1rem] sm:rounded-[2rem] border-[3px] border-[#b76e79]/40 group-hover:border-[#b76e79] transition-colors duration-1000 bg-white shadow-2xl transform-gpu">
                 <img src="/garage-day.jpg" alt="Garage Day" className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105 transform-gpu will-change-transform" />
-                <img src="/garage-night.jpg" alt="Garage Night" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-1000 ease-out transform scale-105 transform-gpu will-change-[opacity,transform]" />
+                <img src="/garage-night.jpg" alt="Garage Night" className={`absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-[opacity,transform] duration-1000 ease-out transform scale-105 transform-gpu will-change-[opacity,transform] ${garageNight ? "max-md:opacity-100" : ""}`} />
+                <span className="md:hidden absolute bottom-3 right-3 text-white/70 text-[10px] uppercase tracking-[0.3em] font-medium pointer-events-none z-20" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}>
+                  {garageNight ? "Tap" : "Click"}
+                </span>
               </div>
             </div>
           </div>

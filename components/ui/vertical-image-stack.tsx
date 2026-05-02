@@ -71,50 +71,17 @@ export function VerticalImageStack({ items }: { items: StackItem[] }) {
   const current = items[currentIndex];
 
   return (
-    <div className="relative flex h-[760px] md:h-[820px] w-full items-center justify-center overflow-hidden bg-white">
+    <div className="relative flex flex-row items-center md:justify-center justify-start gap-3 md:gap-0 h-[600px] md:h-[820px] w-full overflow-hidden bg-white px-2 md:px-0">
       {/* Subtle ambient glow */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-zinc-900/[0.02] blur-3xl" />
       </div>
 
-      {/* Side panel — name / role / description for the active person */}
-      <div className="hidden md:flex absolute left-12 lg:left-24 top-1/2 -translate-y-1/2 max-w-sm flex-col gap-4 z-10">
-        <span className="text-[10px] uppercase tracking-[0.35em] text-[#b76e79] font-medium">
-          {String(currentIndex + 1).padStart(2, "0")} /{" "}
-          {String(items.length).padStart(2, "0")}
-        </span>
-        <motion.h3
-          key={`name-${current.id}`}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="font-clash text-3xl lg:text-4xl font-semibold tracking-tight text-zinc-900 leading-[1.1]"
-        >
-          {current.name}
-        </motion.h3>
-        <motion.p
-          key={`role-${current.id}`}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.05, ease: "easeOut" }}
-          className="text-[11px] uppercase tracking-[0.25em] text-zinc-500"
-        >
-          {current.role}
-        </motion.p>
-        <motion.p
-          key={`desc-${current.id}`}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-          className="text-zinc-600 text-sm lg:text-base leading-relaxed font-light mt-2"
-        >
-          {current.description}
-        </motion.p>
-      </div>
-
-      {/* Card stack with up/down arrows above and below for navigation */}
+      {/* Card stack column.
+          Mobile: in-flow flex item, scaled to 0.5 with negative margins so the layout matches the visual size.
+          Desktop: absolutely centered, full size. */}
       <div
-        className="relative flex flex-col items-center justify-center gap-3"
+        className="md:absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2 md:order-2 order-1 origin-center scale-[0.5] md:scale-100 -mx-[80px] md:mx-0 flex flex-col items-center justify-center gap-3 z-10 flex-shrink-0"
         style={{ perspective: "1200px" }}
       >
         {/* UP ARROW (previous) */}
@@ -215,39 +182,45 @@ export function VerticalImageStack({ items }: { items: StackItem[] }) {
         </button>
       </div>
 
-      {/* Mobile-only side panel — shown below the stack */}
-      <div className="md:hidden absolute bottom-20 left-1/2 -translate-x-1/2 max-w-xs flex flex-col items-center text-center gap-2 px-4 z-10">
+      {/* Side panel — name / role / description for the active person.
+          Mobile: takes the remaining flex space on the right.
+          Desktop: absolute on the left, original treatment. */}
+      <div className="md:absolute md:left-12 lg:left-24 md:top-1/2 md:-translate-y-1/2 md:order-1 order-2 flex-1 min-w-0 md:flex-initial max-w-none md:max-w-sm flex flex-col gap-2 md:gap-4 z-10 pr-1 md:pr-0">
+        <span className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] md:tracking-[0.35em] text-[#b76e79] font-medium">
+          {String(currentIndex + 1).padStart(2, "0")} /{" "}
+          {String(items.length).padStart(2, "0")}
+        </span>
         <motion.h3
-          key={`m-name-${current.id}`}
-          initial={{ opacity: 0, y: 8 }}
+          key={`name-${current.id}`}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="font-clash text-2xl font-semibold tracking-tight text-zinc-900"
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="font-clash text-xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-zinc-900 leading-[1.15]"
         >
           {current.name}
         </motion.h3>
         <motion.p
-          key={`m-role-${current.id}`}
-          initial={{ opacity: 0, y: 8 }}
+          key={`role-${current.id}`}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.05 }}
-          className="text-[10px] uppercase tracking-[0.25em] text-zinc-500"
+          transition={{ duration: 0.5, delay: 0.05, ease: "easeOut" }}
+          className="text-[9px] md:text-[11px] uppercase tracking-[0.2em] md:tracking-[0.25em] text-zinc-500"
         >
           {current.role}
         </motion.p>
         <motion.p
-          key={`m-desc-${current.id}`}
-          initial={{ opacity: 0, y: 8 }}
+          key={`desc-${current.id}`}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="text-zinc-600 text-xs leading-relaxed font-light mt-1"
+          transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+          className="text-zinc-600 text-[11px] md:text-sm lg:text-base leading-relaxed font-light mt-1 md:mt-2"
         >
           {current.description}
         </motion.p>
       </div>
 
-      {/* Navigation dots */}
-      <div className="absolute right-8 top-1/2 flex -translate-y-1/2 flex-col gap-2 z-10">
+      {/* Navigation dots — desktop: vertical right rail. Mobile: hidden (text panel already shows the count). */}
+      <div className="hidden md:flex absolute right-8 top-1/2 -translate-y-1/2 flex-col gap-2 z-10">
         {items.map((_, index) => (
           <button
             key={index}

@@ -286,7 +286,9 @@ export function CinematicHero({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=7000",
+          // Mobile: compress the scrubbed timeline so a single normal scroll exits the section.
+          // Desktop: keep the long, cinematic 7000px scrub.
+          end: isMobile ? "+=1400" : "+=7000",
           pin: true,
           scrub: 1,
           anticipatePin: 1,
