@@ -234,8 +234,8 @@ export default function VillasPage() {
           <div className="w-full max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-[1.5fr_1fr] gap-16 md:gap-24 items-center">
             <div className="relative flex items-center w-full">
               {bedroomIndex > 0 && (
-                <button onClick={prevBedroom} className="absolute -left-10 md:-left-16 z-40 p-2 text-zinc-300 hover:text-[#b76e79] transition-colors duration-300 transform -translate-y-1/2 top-1/2">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 md:w-10 md:h-10"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
+                <button onClick={prevBedroom} className="absolute left-2 md:-left-16 z-40 p-2 text-white md:text-zinc-300 hover:text-[#b76e79] transition-colors duration-300 transform -translate-y-1/2 top-1/2 md:bg-transparent bg-black/30 md:rounded-none rounded-full backdrop-blur-sm md:backdrop-blur-none" style={{ filter: "drop-shadow(0 1px 4px rgba(0,0,0,0.5))" }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 md:w-10 md:h-10"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
                 </button>
               )}
               <div
@@ -254,8 +254,8 @@ export default function VillasPage() {
                 </div>
               </div>
               {bedroomIndex < bedroomSlides.length - 1 && (
-                <button onClick={nextBedroom} className="absolute -right-10 md:-right-16 z-40 p-2 text-zinc-300 hover:text-[#b76e79] transition-colors duration-300 transform -translate-y-1/2 top-1/2">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 md:w-10 md:h-10"><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+                <button onClick={nextBedroom} className="absolute right-2 md:-right-16 z-40 p-2 text-white md:text-zinc-300 hover:text-[#b76e79] transition-colors duration-300 transform -translate-y-1/2 top-1/2 md:bg-transparent bg-black/30 md:rounded-none rounded-full backdrop-blur-sm md:backdrop-blur-none" style={{ filter: "drop-shadow(0 1px 4px rgba(0,0,0,0.5))" }}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 md:w-10 md:h-10"><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
                 </button>
               )}
             </div>

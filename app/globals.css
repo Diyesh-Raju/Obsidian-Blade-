@@ -34,6 +34,37 @@ img, video, canvas {
   max-width: 100%;
 }
 
+/* ----------------------------------------------------------------------
+   Phone-only: kill horizontal overflow & rubber-band drag, and polish
+   small rendering details so the experience matches desktop quality.
+   - overflow-x: clip (with hidden fallback) on html+body locks the
+     viewport horizontally so nothing rendered slightly off-canvas can
+     pull the page sideways.
+   - overscroll-behavior-x: none stops iOS/Android from offering a
+     left/right swipe gesture on the page itself.
+   - touch-action: pan-y pinch-zoom blocks horizontal pan gestures while
+     still allowing normal vertical scrolling and pinch-zoom.
+   - tap-highlight-color: transparent removes the iOS gray flash on tap.
+   - text-rendering / font-smoothing: sharper type on retina phones.
+   Desktop is intentionally untouched.
+---------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  html, body {
+    overflow-x: hidden;
+    overflow-x: clip;
+    overscroll-behavior-x: none;
+    width: 100%;
+    max-width: 100vw;
+  }
+  body {
+    touch-action: pan-y pinch-zoom;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
 /* Bulletproof Clash Display Class */
 .font-clash { 
   font-family: 'Clash Display', ui-sans-serif, system-ui, sans-serif !important; 
